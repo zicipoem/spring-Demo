@@ -24,4 +24,5 @@ public class IndexController {
         ModelAndView mv = new ModelAndView("blog");
         return mv;
     }
+    
 }
