@@ -18,4 +18,10 @@ public class IndexController {
         mv.addObject("list", articleDao.findAll());
         return mv;
     }
+
+    @RequestMapping("/blog.html")
+    public ModelAndView blog() {
+        ModelAndView mv = new ModelAndView("blog");
+        return mv;
+    }
 }
