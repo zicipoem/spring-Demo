@@ -1,0 +1,17 @@
+spring:
+  h2: # h2数据库
+    console: # h2管理平台
+      path: /h2 # h2管理平台的地址
+      enabled: true # 开启h2管理平台
+  datasource: # 数据源
+    driver-class-name: org.h2.Driver # 数据源的驱动器
+    url: jdbc:h2:file:./myH2 # 数据源的地址
+    username: root # 数据源的账号
+    password: root # 数据源的密码
+  jpa:
+    show-sql: true # 显示sql
+    hibernate:
+      ddl-auto: update # 启动时自动更新数据库
+  application:
+    name:
+      communityserver
