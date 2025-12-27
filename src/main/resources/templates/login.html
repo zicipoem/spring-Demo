@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html>
 	<head>
 		<title>登录</title>
 		<meta charset="utf-8">
@@ -15,9 +15,7 @@
 		<link rel="stylesheet" type="text/css" href="/assets/vendors/swiper/swiper.css">
 		<!-- App & fonts-->
 		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Open+Sans:400,700">
-		<link rel="stylesheet" type="text/css" id="app-stylesheet" href="/assets/css/main.css"><!--[if lt IE 9]>
-			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-		<![endif]-->
+		<link rel="stylesheet" type="text/css" id="app-stylesheet" href="/assets/css/main.css">
 	</head>
 	
 	<body>
@@ -40,19 +38,17 @@
 						
 						<!--  -->
 						<ul class="wil-menu-list">
-								<li><a href="/index.html">首页</a>
+							<li><a href="/index.html">首页</a>
+							</li>
+							<li><a href="/about.html">关于我们</a>
+							</li>
+							<li><a href="/work.html">栏目分类</a>
+							</li>
+							<li><a href="/blog.html">新闻列表</a>
+							</li>
+							<li><a href="/contact.html">联系我们</a>
 								</li>
-								<li><a href="/about.html">关于我们</a>
-								</li>
-								<li><a href="/work.html">栏目分类</a>
-								</li>
-								<li><a href="/blog.html">新闻列表</a>
-								</li>
-								<li><a href="/contact.html">联系我们</a>
-								</li>
-								<li class="current-menu-item"><a href="/login">登录</a>
-								</li>
-								</ul><!--  -->
+							</ul><!--  -->
 						
 					</nav><!-- End / overlay-menu -->
 					
@@ -70,32 +66,49 @@
 						<!-- page-title -->
 						<div class="page-title">
 							<h2 class="page-title__title">用户登录</h2>
-							<p class="page-title__text">请输入您的用户名和密码</p>
 							<div class="page-title__divider"></div>
 						</div><!-- End / page-title -->
 						
+					</div>
+				</section>
+				<!-- End / Section -->
+				
+				<!-- Section -->
+				<section class="awe-section">
+					<div class="container">
+						
 						<div class="row">
-							<div class="col-lg-6 offset-lg-3">
-								<div class="card">
-								<div class="card-body">
+							<div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-10 offset-sm-1">
+								
+								<!-- login-form -->
+								<div class="login-form">
+									
 									<form action="/login" method="post">
-										<div th:if="${error}" class="alert alert-danger" role="alert">
+										
+										<!-- input-item -->
+										<div class="input-item">
+											<input type="text" name="username" placeholder="用户名" required>
+										</div><!-- End / input-item -->
+										
+										<!-- input-item -->
+										<div class="input-item">
+											<input type="password" name="password" placeholder="密码" required>
+										</div><!-- End / input-item -->
+										
+										<!-- error message -->
+										<div th:if="${error != null}" class="error-message" style="color: red; margin-bottom: 20px;">
 											[[${error}]]
 										</div>
-										<div class="form-group">
-											<label for="username" >用户名</label>
-											<input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名" required>
-										</div>
-										<div class="form-group">
-											<label for="password" >密码</label>
-											<input type="password" class="form-control" id="password" name="password" placeholder="请输入密码" required>
-										</div>
-										<div class="form-group">
-											<button type="submit" class="md-btn md-btn--primary btn-block">登录</button>
-										</div>
+										
+										<!-- btn-item -->
+										<div class="btn-item">
+											<button type="submit" class="btn">登录</button>
+										</div><!-- End / btn-item -->
+										
 									</form>
-								</div>
-							</div>
+									
+								</div><!-- End / login-form -->
+								
 							</div>
 						</div>
 						
@@ -103,64 +116,26 @@
 				</section>
 				<!-- End / Section -->
 				
-			</div>
-			<!-- End / Content-->
+			</div><!-- End / Content-->
 			
-			<!-- footer -->
-			<div class="footer">
-				<div class="container">
-					<div class="row">
-						<div class="col-md-6 col-lg-6 ">
-							<p class="footer__coppy">&copy; Copyright <a target="_blank" href="http://www.mobanwang.com/" title="网页模板">网页模板</a>. All rights Reserved.</p>
-						</div>
-						<div class="col-md-6 col-lg-6 ">
-							<div class="footer__social">
-								
-								<!-- social-icon -->
-								<a class="social-icon" href="#"><i class="social-icon__icon fa fa-facebook"></i>
-								</a><!-- End / social-icon -->
-								
-								
-								<!-- social-icon -->
-								<a class="social-icon" href="#"><i class="social-icon__icon fa fa-twitter"></i>
-								</a><!-- End / social-icon -->
-								
-								
-								<!-- social-icon -->
-								<a class="social-icon" href="#"><i class="social-icon__icon fa fa-linkedin"></i>
-								</a><!-- End / social-icon -->
-								
-								
-								<!-- social-icon -->
-								<a class="social-icon" href="#"><i class="social-icon__icon fa fa-behance"></i>
-								</a><!-- End / social-icon -->
-								
-								
-								<!-- social-icon -->
-								<a class="social-icon" href="#"><i class="social-icon__icon fa fa-vimeo"></i>
-								</a><!-- End / social-icon -->
-								
-							</div>
-						</div>
-					</div>
-				</div>
-			</div><!-- End / footer -->
-			
-		</div>
-		<!-- Vendors-->
+		</div><!-- End / page-wrap -->
+		
+		<!-- Vendors--> 
 		<script type="text/javascript" src="/assets/vendors/jquery/jquery.min.js"></script>
-		<script type="text/javascript" src="/assets/vendors/imagesloaded/imagesloaded.pkgd.js"></script>
-		<script type="text/javascript" src="/assets/vendors/isotope-layout/isotope.pkgd.js"></script>
-		<script type="text/javascript" src="/assets/vendors/jquery-one-page/jquery.nav.min.js"></script>
-		<script type="text/javascript" src="/assets/vendors/jquery.easing/jquery.easing.min.js"></script>
 		<script type="text/javascript" src="/assets/vendors/jquery.matchHeight/jquery.matchHeight.min.js"></script>
-		<script type="text/javascript" src="/assets/vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
-		<script type="text/javascript" src="/assets/vendors/masonry-layout/masonry.pkgd.js"></script>
 		<script type="text/javascript" src="/assets/vendors/jquery.waypoints/jquery.waypoints.min.js"></script>
-		<script type="text/javascript" src="/assets/vendors/swiper/swiper.jquery.js"></script>
+		<script type="text/javascript" src="/assets/vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
+		<script type="text/javascript" src="/assets/vendors/isotope-layout/isotope.pkgd.js"></script>
+		<script type="text/javascript" src="/assets/vendors/imagesloaded/imagesloaded.pkgd.js"></script>
+		<script type="text/javascript" src="/assets/vendors/masonry-layout/masonry.pkgd.js"></script>
+		<script type="text/javascript" src="/assets/vendors/slider/slider.js"></script>
 		<script type="text/javascript" src="/assets/vendors/menu/menu.js"></script>
 		<script type="text/javascript" src="/assets/vendors/typed/typed.min.js"></script>
+		<script type="text/javascript" src="/assets/vendors/swiper/swiper.jquery.js"></script>
+		<script type="text/javascript" src="/assets/vendors/jquery-one-page/jquery.nav.min.js"></script>
+		<script type="text/javascript" src="/assets/vendors/jquery.easing/jquery.easing.min.js"></script>
 		<!-- App-->
 		<script type="text/javascript" src="/assets/js/main.js"></script>
+		
 	</body>
 </html>
