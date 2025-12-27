@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 	<head>
-		<title>关于我们</title>
+		<title>登录</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 		<meta name="format-detection" content="telephone=no">
@@ -26,23 +26,23 @@
 			<!-- header -->
 			<header class="header header--fixed">
 				<div class="header__inner">
-<div class="header__logo"><a href="/index.html"><img src="/assets/img/logo.png" alt="" style="width: 122px;"/></a></div>
-				<div class="navbar-toggle" id="fs-button">
-					<div class="navbar-icon"><span></span></div>
+					<div class="header__logo"><a href="/index.html"><img src="/assets/img/logo.png" alt="" style="width: 122px;"/></a></div>
+					<div class="navbar-toggle" id="fs-button">
+						<div class="navbar-icon"><span></span></div>
+					</div>
 				</div>
-			</div>
-			
-			<!-- fullscreenmenu__module -->
-			<div class="fullscreenmenu__module" trigger="#fs-button">
 				
-				<!-- overlay-menu -->
-				<nav class="overlay-menu">
+				<!-- fullscreenmenu__module -->
+				<div class="fullscreenmenu__module" trigger="#fs-button">
 					
-					<!--  -->
-					<ul class="wil-menu-list">
+					<!-- overlay-menu -->
+					<nav class="overlay-menu">
+						
+						<!--  -->
+						<ul class="wil-menu-list">
 								<li><a href="/index.html">首页</a>
 								</li>
-								<li class="current-menu-item"><a href="/about.html">关于我们</a>
+								<li><a href="/about.html">关于我们</a>
 								</li>
 								<li><a href="/work.html">栏目分类</a>
 								</li>
@@ -50,7 +50,7 @@
 								</li>
 								<li><a href="/contact.html">联系我们</a>
 								</li>
-								<li><a href="/login">登录</a>
+								<li class="current-menu-item"><a href="/login">登录</a>
 								</li>
 								</ul><!--  -->
 						
@@ -68,61 +68,37 @@
 					<div class="container">
 						
 						<!-- page-title -->
-						<div class="page-title pb-40">
-							<h2 class="page-title__title">关于我们</h2>
-							<p class="page-title__text">欢迎了解我们的新闻网站</p>
+						<div class="page-title">
+							<h2 class="page-title__title">用户登录</h2>
+							<p class="page-title__text">请输入您的用户名和密码</p>
 							<div class="page-title__divider"></div>
 						</div><!-- End / page-title -->
 						
-					</div>
-				</section>
-				<!-- End / Section -->
-				
-				
-				<!-- Section -->
-				<section class="awe-section bg-gray">
-					<div class="container">
 						<div class="row">
-							<div class="col-md-6 col-lg-5 "><img src="/assets/img/pexels-photo-797558.jpeg" alt="">
+							<div class="col-lg-6 offset-lg-3">
+								<div class="card">
+								<div class="card-body">
+									<form action="/login" method="post">
+										<div th:if="${error}" class="alert alert-danger" role="alert">
+											[[${error}]]
+										</div>
+										<div class="form-group">
+											<label for="username" >用户名</label>
+											<input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名" required>
+										</div>
+										<div class="form-group">
+											<label for="password" >密码</label>
+											<input type="password" class="form-control" id="password" name="password" placeholder="请输入密码" required>
+										</div>
+										<div class="form-group">
+											<button type="submit" class="md-btn md-btn--primary btn-block">登录</button>
+										</div>
+									</form>
+								</div>
 							</div>
-							<div class="col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-0 col-lg-offset-1 ">
-								
-								<!--  -->
-								<div class="mt-30">
-									<h2 class="about__title">新闻门户</h2>
-									<p class="about__subtitle">提供最新、最全面的新闻资讯</p>
-									<p class="about__text">我们的新闻网站致力于为用户提供及时、准确、全面的新闻资讯服务。涵盖科技、财经、文化、体育、教育等多个领域，我们拥有专业的编辑团队和记者网络，确保为您带来最有价值的新闻内容。</p>
-									
-									<!-- progress -->
-									<div class="progress">
-										<h5 class="progress__title">新闻质量</h5>
-										<div class="progress__wrap">
-											<div class="progress__bar" data-progress-percent="33" data-timing="ease" data-duration="1000" data-delay="500"></div><span class="progress__number">39%</span>
-										</div>
-									</div><!-- End / progress -->
-									
-									
-									<!-- progress -->
-									<div class="progress">
-										<h5 class="progress__title">内容覆盖</h5>
-										<div class="progress__wrap">
-											<div class="progress__bar" data-progress-percent="59" data-timing="ease" data-duration="1000" data-delay="500"></div><span class="progress__number">47%</span>
-										</div>
-									</div><!-- End / progress -->
-									
-									
-									<!-- progress -->
-									<div class="progress">
-										<h5 class="progress__title">用户体验</h5>
-										<div class="progress__wrap">
-											<div class="progress__bar" data-progress-percent="53" data-timing="ease" data-duration="1000" data-delay="500"></div><span class="progress__number">59%</span>
-										</div>
-									</div><!-- End / progress -->
-									
-								</div><!-- End /  -->
-								
 							</div>
 						</div>
+						
 					</div>
 				</section>
 				<!-- End / Section -->

@@ -26,4 +26,6 @@ public class Customer {
     private String jobNo;
     private String name;
     private String department;
+    private String username;
+    private String password;
 }

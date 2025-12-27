@@ -25,7 +25,7 @@ public class CustomerController {
 
     @RequestMapping("/add/auto")
     public Customer addByAuto(String jobNo, String name, String department) {
-        Customer customer = new Customer(null, jobNo, name, department);
+        Customer customer = new Customer(null, jobNo, name, department, department, department);
         return customerDao.save(customer);
     }
 
