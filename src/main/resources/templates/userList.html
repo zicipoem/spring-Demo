@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>用户管理</title>
+    <!-- Fonts & CSS (reuse existing assets) -->
+    <link rel="stylesheet" type="text/css" href="/assets/fonts/fontawesome/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/fonts/pe-icon/pe-icon.css">
+    <link rel="stylesheet" type="text/css" href="/assets/vendors/bootstrap/grid.css">
+    <link rel="stylesheet" type="text/css" id="app-stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+<div class="page-wrap" id="root">
+    <header class="header header--fixed">
+        <div class="header__inner">
+            <div class="header__logo"><a href="/index.html"><img src="/assets/img/logo.png" alt="" style="width: 122px;"/></a></div>
+            <div class="navbar-toggle" id="fs-button">
+                <div class="navbar-icon"><span></span></div>
+            </div>
+        </div>
+        <div class="fullscreenmenu__module" trigger="#fs-button">
+            <nav class="overlay-menu">
+                <ul class="wil-menu-list">
+                    <li><a href="/index.html">首页</a></li>
+                    <li><a href="/about.html">关于我们</a></li>
+                    <li><a href="/article/list">文章管理</a></li>
+                    <li th:if="${session.user != null}"><a href="/user/list">用户管理</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <div class="wil-content">
+        <section class="awe-section">
+            <div class="container">
+                <div class="page-title">
+                    <h2 class="page-title__title">用户管理</h2>
+                    <div class="page-title__divider"></div>
+                    <div class="admin-tabs" style="margin-top:10px;">
+                        <a class="btn btn-sm btn-outline-secondary" th:classappend="${page=='article'} ? ' active'" href="/article/list" style="color:#000;">文章管理</a>
+                    </div>
+            </div>
+        </section>
+
+        <section class="awe-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="box">
+                            <form class="form-horizontal" id="user-form">
+                                <input type="hidden" id="id" name="id" />
+                                <div class="form-group">
+                                    <label for="username">用户名</label>
+                                    <input type="text" class="form-control" id="username" name="username" placeholder="请输入用户名">
+                                </div>
+                                <div class="form-group">
+                                    <label for="password">密码</label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
+                                </div>
+                                <div class="form-group">
+                                    <label for="url">头像</label>
+                                    <input type="url" class="form-control" id="url" name="url" placeholder="请输入头像地址">
+                                </div>
+                                <button type="button" class="btn btn-block btn-success add" id="save-btn">添加</button>
+                                <button type="button" class="btn btn-block btn-secondary reset" id="reset-btn" style="margin-top:10px;">重置</button>
+                            </form>
+                        </div>
+
+                        <div class="box" style="margin-top:20px;">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>编号</th>
+                                        <th>用户名</th>
+                                        <th>头像</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="item:${list}" th:attr="data-id=${item.id}, data-username=${item.username}, data-url=${item.url}">
+                                        <td th:text="${item.id}"></td>
+                                        <td th:text="${item.username}"></td>
+                                        <td>
+                                            <img th:src="${item.url}" width="100" height="100" alt="头像"/>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-primary edit" th:attr="data-id=${item.id}">编辑</button>
+                                            <button type="button" class="btn btn-danger del" th:attr="data-id=${item.id}">删除</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer scripts -->
+    <script type="text/javascript" src="/assets/vendors/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/js/main.js"></script>
+    <script type="text/javascript" src="/js/userList.js"></script>
+</div>
+</body>
+</html>

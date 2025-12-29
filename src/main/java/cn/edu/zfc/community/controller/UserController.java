@@ -40,4 +40,23 @@ public class UserController {
         
         return mv;
     }
+    
+    // 用户管理页面
+    @GetMapping("/user/list")
+    public ModelAndView list() {
+        ModelAndView mv = new ModelAndView("userList");
+        mv.addObject("list", userDao.findAll());
+        mv.addObject("page","user");
+        return mv;
+    }
+    
+    @PostMapping("/user/add/model")
+    public User addByModel(@org.springframework.web.bind.annotation.ModelAttribute User user) {
+        return userDao.save(user);
+    }
+    
+    @GetMapping("/user/delete/path/{id}")
+    public void deleteByPath(@org.springframework.web.bind.annotation.PathVariable("id") Long id) {
+        userDao.deleteById(id);
+    }
 }

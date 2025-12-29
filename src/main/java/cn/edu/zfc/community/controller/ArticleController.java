@@ -39,6 +39,7 @@ public class ArticleController {
         ModelAndView mv = new ModelAndView("articleList");// 指定视图名称
         mv.addObject("list", articleDao.findAll());// 将领域模型数据添加到视图中
         mv.addObject("navs", Nav.all("article"));
+        mv.addObject("page","article");
         return mv;
     }
 }
