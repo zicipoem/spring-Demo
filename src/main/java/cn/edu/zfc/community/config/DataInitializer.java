@@ -18,9 +18,9 @@ public class DataInitializer implements CommandLineRunner {
         if (userDao.count() == 0) {
             User defaultUser = new User();
             defaultUser.setUsername("Elyina");
-            defaultUser.setPassword("123");
+            defaultUser.setPassword("0721");
             userDao.save(defaultUser);
-            System.out.println("默认用户已创建：用户名 Elyina，密码 123");
+            System.out.println("默认用户已创建：用户名 Elyina，密码 0721");
         }
     }
 }

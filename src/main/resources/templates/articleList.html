@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>文章管理</title>
+    <!-- Fonts-->
+    <link rel="stylesheet" type="text/css" href="/assets/fonts/fontawesome/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/fonts/pe-icon/pe-icon.css">
+    <!-- Vendors-->
+    <link rel="stylesheet" type="text/css" href="/assets/vendors/bootstrap/grid.css">
+    <link rel="stylesheet" type="text/css" href="/assets/vendors/magnific-popup/magnific-popup.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/vendors/swiper/swiper.css">
+    <!-- App & fonts-->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Open+Sans:400,700">
+    <link rel="stylesheet" type="text/css" id="app-stylesheet" href="/assets/css/main.css">
+</head>
+<body>
+<div class="page-wrap" id="root">
+    <!-- header -->
+    <header class="header header--fixed">
+        <div class="header__inner">
+            <div class="header__logo"><a href="/index.html"><img src="/assets/img/logo.png" alt="" style="width: 122px;"/></a></div>
+            <div class="navbar-toggle" id="fs-button">
+                <div class="navbar-icon"><span></span></div>
+            </div>
+        </div>
+        <!-- fullscreenmenu__module -->
+        <div class="fullscreenmenu__module" trigger="#fs-button">
+            <!-- overlay-menu -->
+            <nav class="overlay-menu">
+                <!--  -->
+                <ul class="wil-menu-list">
+                    <li><a href="/index.html">首页</a>
+                    </li>
+                    <li><a href="/about.html">关于我们</a>
+                    </li>
+                    <li><a href="/work.html">栏目分类</a>
+                    </li>
+                    <li><a href="/blog.html">新闻列表</a>
+                    </li>
+                    <li><a href="/contact.html">联系我们</a>
+                    </li>
+                    <li th:if="${session.user != null}"><a href="/article/list">管理页</a></li>
+                    <li th:if="${session.user == null}"><a href="/login.html">登录</a></li>
+                </ul><!--  -->
+            </nav><!-- End / overlay-menu -->
+        </div><!-- End / fullscreenmenu__module -->
+    </header><!-- End / header -->
+
+    <!-- Content-->
+    <div class="wil-content">
+        <!-- Section -->
+        <section class="awe-section">
+            <div class="container">
+                <!-- page-title -->
+                <div class="page-title">
+                    <h2 class="page-title__title">文章管理</h2>
+                    <div class="page-title__divider"></div>
+                </div><!-- End / page-title -->
+            </div>
+        </section>
+        <!-- End / Section -->
+
+        <section class="awe-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="box">
+                            <form class="form-horizontal">
+                                <div class="form-group">
+                                    <label for="title">标题</label>
+                                    <input type="text" class="form-control" id="title" name="title" placeholder="请输入标题">
+                                </div>
+                                <div class="form-group">
+                                    <label for="content">内容</label>
+                                    <input type="text" class="form-control" id="content" name="content" placeholder="请输入内容">
+                                </div>
+                                <div class="form-group">
+                                    <label for="url">头像</label>
+                                    <input type="url" class="form-control" id="url" name="url" placeholder="请输入头像地址">
+                                </div>
+                                <div class="form-group">
+                                    <label for="image">图片</label>
+                                    <input type="url" class="form-control" id="image" name="image" placeholder="请输入图片">
+                                </div>
+                                <a class="btn btn-block btn-success add">添加</a>
+                            </form>
+                        </div>
+                        <div class="box" style="margin-top:20px;">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>编号</th>
+                                        <th>标题</th>
+                                        <th>内容</th>
+                                        <th>头像</th>
+                                        <th>图片</th>
+                                        <th>操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr th:each="item:${list}">
+                                        <td th:text="${item.id}"></td>
+                                        <td th:text="${item.title}"></td>
+                                        <td th:text="${item.content}"></td>
+                                        <td>
+                                            <img th:src="${item.url}" width="100" height="100" alt="头像"/>
+                                        </td>
+                                        <td>
+                                            <img th:src="${item.image}" width="300" height="200" alt="图片"/>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-danger del" th:attr="data-id=${item.id}">删除</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div><!-- End / Content-->
+
+    <!-- Footer scripts -->
+    <script type="text/javascript" src="/assets/vendors/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/vendors/jquery.matchHeight/jquery.matchHeight.min.js"></script>
+    <script type="text/javascript" src="/assets/vendors/jquery.waypoints/jquery.waypoints.min.js"></script>
+    <script type="text/javascript" src="/assets/vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="/assets/vendors/isotope-layout/isotope.pkgd.js"></script>
+    <script type="text/javascript" src="/assets/vendors/imagesloaded/imagesloaded.pkgd.js"></script>
+    <script type="text/javascript" src="/assets/vendors/masonry-layout/masonry.pkgd.js"></script>
+    <script type="text/javascript" src="/assets/vendors/slider/slider.js"></script>
+    <script type="text/javascript" src="/assets/vendors/menu/menu.js"></script>
+    <script type="text/javascript" src="/assets/vendors/typed/typed.min.js"></script>
+    <script type="text/javascript" src="/assets/vendors/swiper/swiper.jquery.js"></script>
+    <script type="text/javascript" src="/assets/vendors/jquery-one-page/jquery.nav.min.js"></script>
+    <script type="text/javascript" src="/assets/vendors/jquery.easing/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="/assets/js/main.js"></script>
+    <script type="text/javascript" src="/js/articleList.js"></script>
+</div><!-- End / page-wrap -->
+</body>
+</html>

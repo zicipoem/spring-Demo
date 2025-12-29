@@ -2,6 +2,9 @@ package cn.edu.zfc.community.controller;
 
 import cn.edu.zfc.community.dao.UserDao;
 import cn.edu.zfc.community.pojo.User;
+
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,13 +24,14 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ModelAndView login(String username, String password) {
+    public ModelAndView login(String username, String password, HttpSession session) {
         ModelAndView mv = new ModelAndView();
         
         User user = userDao.findByUsername(username);
         if (user != null && user.getPassword().equals(password)) {
-            // 登录成功，重定向到首页
-            mv.setViewName("redirect:/index.html");
+            // 登录成功，保存用户到 session 并重定向到文章管理页
+            session.setAttribute("user", user);
+            mv.setViewName("redirect:/article/list");
         } else {
             // 登录失败，返回登录页面并显示错误信息
             mv.setViewName("login");
