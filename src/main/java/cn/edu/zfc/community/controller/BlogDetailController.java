@@ -8,9 +8,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.zfc.community.dao.ArticleDao;
 import cn.edu.zfc.community.pojo.Article;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-
 import java.util.Optional;
 
 @RestController
