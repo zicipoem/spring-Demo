@@ -12,11 +12,12 @@ public class BlogController {
 
     @Autowired
     private ArticleDao articleDao;
+    
     @RequestMapping("/blog.html")
     public ModelAndView blog() {
         ModelAndView mv = new ModelAndView("blog");
-        mv.addObject("list", articleDao.findAll());
+        // 获取所有文章列表
+        mv.addObject("articles", articleDao.findAll());
         return mv;
     }
-
 }

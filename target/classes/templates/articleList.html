@@ -74,19 +74,23 @@
                                 <input type="hidden" id="id" name="id" />
                                 <div class="form-group">
                                     <label for="title">标题</label>
-                                    <input type="text" class="form-control" id="title" name="title" placeholder="请输入标题">
+                                    <input type="text" class="form-control" id="title" name="title" placeholder="请输入新闻标题">
+                                </div>
+                                <div class="form-group">
+                                    <label for="summary">摘要</label>
+                                    <textarea class="form-control" id="summary" name="summary" rows="3" placeholder="请输入新闻摘要"></textarea>
                                 </div>
                                 <div class="form-group">
                                     <label for="content">内容</label>
-                                    <input type="text" class="form-control" id="content" name="content" placeholder="请输入内容">
+                                    <textarea class="form-control" id="content" name="content" rows="10" placeholder="请输入新闻内容（支持HTML格式）"></textarea>
                                 </div>
                                 <div class="form-group">
-                                    <label for="url">头像</label>
-                                    <input type="url" class="form-control" id="url" name="url" placeholder="请输入头像地址">
+                                    <label for="coverImage">封面图片</label>
+                                    <input type="url" class="form-control" id="coverImage" name="coverImage" placeholder="请输入封面图片URL">
                                 </div>
                                 <div class="form-group">
-                                    <label for="image">图片</label>
-                                    <input type="url" class="form-control" id="image" name="image" placeholder="请输入图片">
+                                    <label for="images">图片列表</label>
+                                    <textarea class="form-control" id="images" name="images" rows="4" placeholder="请输入图片URL，多个URL请用换行分隔"></textarea>
                                 </div>
                                 <button type="button" class="btn btn-block btn-success add" id="save-btn">添加</button>
                                 <button type="button" class="btn btn-block btn-secondary reset" id="reset-btn" style="margin-top:10px;">重置</button>
@@ -98,23 +102,24 @@
                                     <tr>
                                         <th>编号</th>
                                         <th>标题</th>
+                                        <th>摘要</th>
                                         <th>内容</th>
-                                        <th>头像</th>
-                                        <th>图片</th>
+                                        <th>封面图片</th>
+                                        <th>图片列表</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="item:${list}" th:attr="data-id=${item.id}, data-title=${item.title}, data-content=${item.content}, data-url=${item.url}, data-image=${item.image}">
+                                    <tr th:each="item:${list}" th:attr="data-id=${item.id}, data-title=${item.title}, data-summary=${item.summary}, data-content=${item.content}, data-coverImage=${item.coverImage}, data-images=${#strings.arrayJoin(item.images, ',')}">
                                         <td th:text="${item.id}"></td>
                                         <td th:text="${item.title}"></td>
-                                        <td th:text="${item.content}"></td>
+                                        <td th:text="${item.summary}"></td>
+                                        <td th:text="${#strings.abbreviate(item.content, 50)}"></td>
                                         <td>
-                                            <img th:src="${item.url}" width="100" height="100" alt="头像"/>
+                                            <img th:src="${item.coverImage}" width="100" height="100" alt="封面图片" th:if="${item.coverImage != null}"/>
+                                            <span th:if="${item.coverImage == null}">无封面</span>
                                         </td>
-                                        <td>
-                                            <img th:src="${item.image}" width="300" height="200" alt="图片"/>
-                                        </td>
+                                        <td th:text="${item.images != null ? item.images.size() + '张图片' : '无图片'}"></td>
                                         <td>
                                             <button type="button" class="btn btn-primary edit" th:attr="data-id=${item.id}">编辑</button>
                                             <button type="button" class="btn btn-danger del" th:attr="data-id=${item.id}">删除</button>

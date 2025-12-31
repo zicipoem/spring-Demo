@@ -10,9 +10,10 @@ $(function () {
         var data = {
             id: $('#id').val(),
             title: $('#title').val(),
+            summary: $('#summary').val(),
             content: $('#content').val(),
-            url: $('#url').val(),
-            image: $('#image').val()
+            coverImage: $('#coverImage').val(),
+            images: $('#images').val().split('\n').filter(url => url.trim() !== '')
         };
         $.post('/article/add/model', data, function (res) {
             // 直接刷新页面以显示最新列表
@@ -40,9 +41,10 @@ $(function () {
         var tr = $(this).closest('tr');
         $('#id').val(tr.data('id'));
         $('#title').val(tr.data('title'));
+        $('#summary').val(tr.data('summary'));
         $('#content').val(tr.data('content'));
-        $('#url').val(tr.data('url'));
-        $('#image').val(tr.data('image'));
+        $('#coverImage').val(tr.data('coverimage'));
+        $('#images').val(tr.data('images').replace(/,/g, '\n'));
         $('#save-btn').text('保存');
         $('html,body').animate({scrollTop: 0}, 200);
     });

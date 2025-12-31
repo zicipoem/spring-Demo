@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
 	<head>
 		<title>博客</title>
 		<meta charset="utf-8">
@@ -85,136 +85,38 @@
 						<div class="grid-css grid-css--masonry" data-col-lg="3" data-col-md="2" data-col-sm="2" data-col-xs="1" data-gap="30">
 							<div class="grid__inner">
 								<div class="grid-sizer"></div>
-								<div class="grid-item">
-									<div class="grid-item__inner">
-										<div class="grid-item__content-wrapper">
-											
-											<!-- post -->
-											<div class="post">
-												<div class="post__media"><a href="blog-detail.html"><img src="/assets/img/pexels-photo-807034.jpeg" alt=""/></a></div>
-												<div class="post__body">
-													<div class="post__meta"><span class="date">2025-12-25</span><span class="author"><a href="#">新闻编辑</a></span></div>
-													<h2 class="post__title"><a href="blog-detail.html">数字时代的媒体变革与未来趋势</a></h2>
-													<p class="post__text">随着数字技术的快速发展，传统媒体正在经历前所未有的变革。本文深入探讨了数字时代媒体行业的发展趋势和挑战...</p>
-													<a class="md-btn md-btn--outline-primary" href="blog-detail.html">阅读更多
-													</a>
-												</div>
-											</div><!-- End / post -->
-											
-										</div>
-									</div>
+								<!-- 遍历文章列表 -->
+								<div th:if="${#lists.isEmpty(articles)}">
+									<p style="text-align: center; padding: 30px;">暂无新闻内容</p>
 								</div>
-								<div class="grid-item">
-									<div class="grid-item__inner">
-										<div class="grid-item__content-wrapper">
-											
-											<!-- post -->
-											<div class="post">
-												<div class="post__media"><a href="blog-detail.html"><img src="/assets/img/pexels-photo-754949.jpeg" alt=""/></a></div>
-												<div class="post__body">
-													<div class="post__meta"><span class="date">2025-12-24</span><span class="author"><a href="#">财经分析师</a></span></div>
-													<h2 class="post__title"><a href="blog-detail.html">全球经济复苏的新机遇与挑战</a></h2>
-													<p class="post__text">在后疫情时代，全球经济正在逐步复苏。本文分析了当前全球经济的发展态势，以及各国在经济复苏过程中面临的机遇与挑战...</p>
-													<a class="md-btn md-btn--outline-primary" href="blog-detail.html">阅读更多
-													</a>
-												</div>
-											</div><!-- End / post -->
-											
-										</div>
-									</div>
-								</div>
-								<div class="grid-item">
-									<div class="grid-item__inner">
-										<div class="grid-item__content-wrapper">
-											
-											<!-- post -->
-											<div class="post">
-												<div class="post__media"><a href="blog-detail.html"><img src="/assets/img/pexels-photo-794578.jpeg" alt=""/></a></div>
-												<div class="post__body">
-													<div class="post__meta"><span class="date">2025-12-23</span><span class="author"><a href="#">科技记者</a></span></div>
-													<h2 class="post__title"><a href="blog-detail.html">人工智能在医疗领域的突破性应用</a></h2>
-													<p class="post__text">人工智能技术正在改变医疗行业的方方面面。从诊断辅助到药物研发，AI正在为医疗领域带来革命性的变化...</p>
-													<a class="md-btn md-btn--outline-primary" href="blog-detail.html">阅读更多
-													</a>
-												</div>
-											</div><!-- End / post -->
-											
-										</div>
-									</div>
-								</div>
-								<div class="grid-item">
-									<div class="grid-item__inner">
-										<div class="grid-item__content-wrapper">
-											
-											<!-- post -->
-											<div class="post">
-												<div class="post__media"><a href="blog-detail.html"><img src="/assets/img/pexels-photo-38069.jpeg" alt=""/></a></div>
-												<div class="post__body">
-													<div class="post__meta"><span class="date">2025-12-22</span><span class="author"><a href="#">文化评论员</a></span></div>
-													<h2 class="post__title"><a href="blog-detail.html">文化遗产保护的创新路径与数字化转型</a></h2>
-													<p class="post__text">文化遗产是人类文明的重要组成部分。本文探讨了如何通过数字化技术创新文化遗产保护模式，让传统文化在现代社会焕发新活力...</p>
-													<a class="md-btn md-btn--outline-primary" href="blog-detail.html">阅读更多
-													</a>
-												</div>
-											</div><!-- End / post -->
-											
-										</div>
-									</div>
-								</div>
-								<div class="grid-item">
-									<div class="grid-item__inner">
-										<div class="grid-item__content-wrapper">
-											
-											<!-- post -->
-											<div class="post">
-												<div class="post__media"><a href="blog-detail.html"><img src="/assets/img/pexels-photo-290386.jpeg" alt=""/></a></div>
-												<div class="post__body">
-													<div class="post__meta"><span class="date">2025-12-21</span><span class="author"><a href="#">科技编辑</a></span></div>
-													<h2 class="post__title"><a href="blog-detail.html">未来城市建设与可持续发展</a></h2>
-													<p class="post__text">随着城市化进程的加速，未来城市建设面临着巨大的挑战和机遇。本文探讨了可持续发展理念在未来城市规划中的应用...</p>
-													<a class="md-btn md-btn--outline-primary" href="blog-detail.html">阅读更多
-													</a>
-												</div>
-											</div><!-- End / post -->
-											
-										</div>
-									</div>
-								</div>
-								<div class="grid-item">
-									<div class="grid-item__inner">
-										<div class="grid-item__content-wrapper">
-											
-											<!-- post -->
-											<div class="post">
-												<div class="post__media"><a href="blog-detail.html"><img src="/assets/img/pexels-photo-792906.jpeg" alt=""/></a></div>
-												<div class="post__body">
-													<div class="post__meta"><span class="date">2025-12-20</span><span class="author"><a href="#">体育记者</a></span></div>
-													<h2 class="post__title"><a href="blog-detail.html">全球体育赛事发展趋势与展望</a></h2>
-													<p class="post__text">从奥运会到世界杯，全球体育赛事正在经历前所未有的变革。本文分析了当前体育赛事的发展趋势和未来展望...</p>
-													<a class="md-btn md-btn--outline-primary" href="blog-detail.html">阅读更多
-													</a>
-												</div>
-											</div><!-- End / post -->
-											
-										</div>
-									</div>
-								</div>
-								<div class="grid-item">
-									<div class="grid-item__inner">
-										<div class="grid-item__content-wrapper">
-											
-											<!-- post -->
-											<div class="post">
-												<div class="post__media"><a href="blog-detail.html"><img src="/assets/img/pexels-photo-789140.jpeg" alt=""/></a></div>
-												<div class="post__body">
-													<div class="post__meta"><span class="date">2025-12-19</span><span class="author"><a href="#">教育专家</a></span></div>
-													<h2 class="post__title"><a href="blog-detail.html">数字教育的未来发展与创新模式</a></h2>
-													<p class="post__text">随着互联网技术的发展，数字教育正在成为教育领域的重要趋势。本文探讨了数字教育的未来发展方向和创新模式...</p>
-													<a class="md-btn md-btn--outline-primary" href="blog-detail.html">阅读更多
-													</a>
-												</div>
-											</div><!-- End / post -->
-											
+								<div th:if="${not #lists.isEmpty(articles)}">
+									<div class="grid-item" th:each="article : ${articles}">
+										<div class="grid-item__inner">
+											<div class="grid-item__content-wrapper">
+												
+												<!-- post -->
+												<div class="post">
+													<div class="post__media">
+														<a th:href="@{/blog-detail.html(id=${article.id})}">
+															<img th:src="${article.coverImage != null ? article.coverImage : '/assets/img/pexels-photo-807034.jpeg'}" alt="" th:if="${article.coverImage != null}"/>
+															<img src="/assets/img/pexels-photo-807034.jpeg" alt="" th:if="${article.coverImage == null}"/>
+														</a>
+													</div>
+													<div class="post__body">
+														<div class="post__meta">
+															<span class="date" th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}"></span>
+															<span class="author"><a href="#">新闻编辑</a></span>
+														</div>
+														<h2 class="post__title">
+															<a th:href="@{/blog-detail.html(id=${article.id})}" th:text="${article.title}">文章标题</a>
+														</h2>
+														<p class="post__text" th:text="${article.summary != null ? article.summary : '暂无摘要'}">文章摘要</p>
+														<a class="md-btn md-btn--outline-primary" th:href="@{/blog-detail.html(id=${article.id})}">阅读更多
+														</a>
+													</div>
+												</div><!-- End / post -->
+												
+											</div>
 										</div>
 									</div>
 								</div>
