@@ -9,13 +9,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "tb_user")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String url;
-    private String username;
+    private String name;
     private String password;
+    private String avatar;
+    private String role;
 }

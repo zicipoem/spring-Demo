@@ -49,8 +49,8 @@
 						<li><a href="/blog.html">新闻列表</a>
 						</li>
 						<li><a href="/contact.html">联系我们</a></li>
-						<li th:if="${session.user != null}"><a href="/article/list">管理</a></li>
-						<li th:if="${session.user == null}"><a href="/login.html">登录</a></li>
+						<li th:if="${isAdmin}"><a href="/article/list">管理</a></li>
+						<li><a href="/logout">登出</a></li>
 						</ul><!--  -->
 						
 					</nav><!-- End / overlay-menu -->
@@ -68,7 +68,7 @@
 						
 						<!-- page-title -->
 						<div class="page-title">
-							<h2 class="page-title__title">欢迎来到新闻资讯门户。<br>我们提供
+							<h2 class="page-title__title"><span th:text="${user.name} + '，欢迎来到新闻资讯门户。'"></span><br>我们提供
 								
 								<!-- typing__module -->
 								<div class="typing__module">

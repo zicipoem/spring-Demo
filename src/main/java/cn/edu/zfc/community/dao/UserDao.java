@@ -7,5 +7,13 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UserDao extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
-    User findByUsername(String username);
+    /**
+     * 根据用户名查询用户
+     */
+    User findTopByName(String name);
+
+    /**
+     * 根据角色查询用户
+     */
+    User findTopByRole(String role);
 }

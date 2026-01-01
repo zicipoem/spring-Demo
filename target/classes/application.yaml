@@ -16,4 +16,9 @@ spring:
     name:
       communityserver
 server:
-  port: 8081
+  port: 8080 # 服务器端口
+
+shiro:
+  loginUrl: /login
+  successUrl: /index.html
+  unauthorizedUrl: /login

@@ -1,85 +1,97 @@
 <!DOCTYPE html>
 <html lang="zh" xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<title>文章详情</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-		<meta name="format-detection" content="telephone=no">
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<!-- Fonts-->
-		<link rel="stylesheet" type="text/css" href="/assets/fonts/fontawesome/font-awesome.min.css">
-		<link rel="stylesheet" type="text/css" href="/assets/fonts/pe-icon/pe-icon.css">
-		<!-- Vendors-->
-		<link rel="stylesheet" type="text/css" href="/assets/vendors/bootstrap/grid.css">
-		<link rel="stylesheet" type="text/css" href="/assets/vendors/magnific-popup/magnific-popup.min.css">
-		<link rel="stylesheet" type="text/css" href="/assets/vendors/swiper/swiper.css">
-		<!-- Custom styles for like/favorite buttons -->
-		<style>
-			.like-favorite-section {
-				text-align: center;
-				padding: 20px 0;
-				border-top: 1px solid #eee;
-				margin-top: 30px;
-			}
-			.like-favorite-buttons {
-				display: flex;
-				justify-content: center;
-				gap: 15px;
-			}
-			.like-btn, .favorite-btn {
-				display: flex;
-				align-items: center;
-				gap: 8px;
-				padding: 10px 20px;
-				border-radius: 25px;
-				transition: all 0.3s ease;
-			}
-			.like-btn:hover, .favorite-btn:hover {
-				transform: translateY(-2px);
-				box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-			}
-			.like-btn.liked {
-				background-color: #dc3545;
-				border-color: #dc3545;
-				color: white;
-			}
-			.like-btn.liked i {
-				color: white;
-			}
-			.favorite-btn.favorited {
-				background-color: #ffc107;
-				border-color: #ffc107;
-				color: #212529;
-			}
-			.favorite-btn.favorited i {
-				color: #212529;
-			}
-		</style>
-		<!-- App & fonts-->
-		<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Open+Sans:400,700">
-		<link rel="stylesheet" type="text/css" id="app-stylesheet" href="/assets/css/main.css"><!--[if lt IE 9]>
+
+<head>
+	<title>文章详情</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta name="format-detection" content="telephone=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<!-- Fonts-->
+	<link rel="stylesheet" type="text/css" href="/assets/fonts/fontawesome/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/fonts/pe-icon/pe-icon.css">
+	<!-- Vendors-->
+	<link rel="stylesheet" type="text/css" href="/assets/vendors/bootstrap/grid.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendors/magnific-popup/magnific-popup.min.css">
+	<link rel="stylesheet" type="text/css" href="/assets/vendors/swiper/swiper.css">
+	<!-- Custom styles for like/favorite buttons -->
+	<style>
+		.like-favorite-section {
+			text-align: center;
+			padding: 20px 0;
+			border-top: 1px solid #eee;
+			margin-top: 30px;
+		}
+
+		.like-favorite-buttons {
+			display: flex;
+			justify-content: center;
+			gap: 15px;
+		}
+
+		.like-btn,
+		.favorite-btn {
+			display: flex;
+			align-items: center;
+			gap: 8px;
+			padding: 10px 20px;
+			border-radius: 25px;
+			transition: all 0.3s ease;
+		}
+
+		.like-btn:hover,
+		.favorite-btn:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+
+		.like-btn.liked {
+			background-color: #dc3545;
+			border-color: #dc3545;
+			color: white;
+		}
+
+		.like-btn.liked i {
+			color: white;
+		}
+
+		.favorite-btn.favorited {
+			background-color: #ffc107;
+			border-color: #ffc107;
+			color: #212529;
+		}
+
+		.favorite-btn.favorited i {
+			color: #212529;
+		}
+	</style>
+	<!-- App & fonts-->
+	<link rel="stylesheet" type="text/css"
+		href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Open+Sans:400,700">
+	<link rel="stylesheet" type="text/css" id="app-stylesheet" href="/assets/css/main.css"><!--[if lt IE 9]>
 			<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
 		<![endif]-->
-	</head>
-	
-	<body>
-		<div class="page-wrap" id="root">
-			
-			<!-- header -->
-			<header class="header header--fixed">
-				<div class="header__inner">
-<div class="header__logo"><a href="/index.html"><img src="/assets/img/logo.png" alt="" style="width: 122px;"/></a></div>
+</head>
+
+<body>
+	<div class="page-wrap" id="root">
+
+		<!-- header -->
+		<header class="header header--fixed">
+			<div class="header__inner">
+				<div class="header__logo"><a href="/index.html"><img src="/assets/img/logo.png" alt=""
+							style="width: 122px;" /></a></div>
 				<div class="navbar-toggle" id="fs-button">
 					<div class="navbar-icon"><span></span></div>
 				</div>
 			</div>
-			
+
 			<!-- fullscreenmenu__module -->
 			<div class="fullscreenmenu__module" trigger="#fs-button">
-				
+
 				<!-- overlay-menu -->
 				<nav class="overlay-menu">
-					
+
 					<!--  -->
 					<ul class="wil-menu-list">
 						<li><a href="/index.html">首页</a>
@@ -90,212 +102,227 @@
 						</li>
 						<li class="current-menu-item"><a href="/blog.html">新闻列表</a>
 						</li>
-						<li><a href="/contact.html">联系我们</a>
-							<li th:if="${session.user != null}"><a href="/article/list">管理页</a></li>
-							<li th:if="${session.user == null}">
-								<a href="/login.html">登录</a>
-							</li>
-						</ul><!--  -->
-						
-					</nav><!-- End / overlay-menu -->
-					
-				</div><!-- End / fullscreenmenu__module -->
-				
-			</header><!-- End / header -->
-			
-			<!-- Content-->
-			<div class="wil-content">
-				
-				<!-- Section -->
-				<section class="awe-section">
-					<div class="container">
-						
-						<!-- page-title -->
-						<div class="page-title pb-40">
-							<span class="post-detail__cat">科技新闻</span>
-							<h2 class="page-title__title" th:text="${article != null ? article.title : '文章标题'}">文章标题</h2>
-							<div class="post-detail__meta">
-								<span class="date" th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">2025-12-25</span>
-								<span class="author"><a href="#">新闻编辑</a></span>
-							</div>
-							<div class="page-title__divider"></div>
-						</div><!-- End / page-title -->
-						
-					</div>
-				</section>
-				<!-- End / Section -->
-				
-				
-				<!-- Section -->
-				<section class="awe-section bg-gray">
-					<div class="container">
-						
-						<!--  -->
-						<div>
-							<div class="post-detail__media">
-								<img th:src="${article != null && article.coverImage != null ? article.coverImage : '/assets/img/pexels-photo-807034.jpeg'}" alt="" th:if="${article != null && article.coverImage != null}"/>
-								<img src="/assets/img/pexels-photo-807034.jpeg" alt="" th:if="${article == null || article.coverImage == null}"/>
-							</div>
-							<div class="post-detail__entry row">
-								<div class="col-md-8">
-									<h5 th:if="${article != null && article.summary != null}" th:text="${article.summary}">文章摘要</h5>
-									<div th:if="${article != null && article.content != null}" th:utext="${article.content}">
-										<p>文章内容...</p>
-									</div>
-									<div th:if="${article == null || article.content == null}">
-										<h5>随着5G、人工智能和大数据技术的快速发展，全球媒体行业正在经历一场前所未有的深刻变革。</h5>
-										<p>数字时代的媒体变革已经深刻改变了信息传播的方式。传统媒体正在积极拥抱数字化转型，新媒体平台不断涌现，用户获取信息的渠道更加多元化。<b>在这场变革中，媒体行业面临着新的机遇和挑战。</b>一方面，技术创新为媒体内容的生产、传播和消费提供了更多可能性；另一方面，信息过载、虚假新闻和版权问题也给行业发展带来了困扰。</p>
-									
-										<p>未来媒体的发展趋势将呈现出智能化、个性化和融合化的特点。人工智能技术将在内容创作、推荐算法和用户体验优化方面发挥越来越重要的作用。个性化推荐系统将根据用户的兴趣和行为习惯，为其提供定制化的信息服务。传统媒体与新媒体的边界将进一步模糊，融合发展成为必然趋势。</p>
-										<p>面对数字时代的媒体变革，媒体从业者需要不断提升自身的专业素养和技术能力，适应行业发展的新要求。同时，行业也需要建立更加完善的法律法规和自律机制，规范市场秩序，保护用户权益。只有这样，才能推动媒体行业在数字时代实现健康、可持续的发展。</p>
-										<p>专家表示，数字时代的媒体变革是不可逆转的趋势，媒体行业需要积极拥抱变革，不断创新，才能在激烈的市场竞争中立于不败之地。未来，媒体将继续发挥重要的社会功能，为用户提供更加优质、多样的信息服务，推动社会的进步和发展。</p>
-									</div>
-								</div>
-							</div>
-							<div class="sharebox__module">
-								<p class="social-text">分享这篇新闻</p>
-								
-								<!-- social-icon -->
-								<a class="social-icon" href="#"><i class="social-icon__icon fa fa-facebook"></i>
-								</a><!-- End / social-icon -->
-								
-								
-								<!-- social-icon -->
-								<a class="social-icon" href="#"><i class="social-icon__icon fa fa-twitter"></i>
-								</a><!-- End / social-icon -->
-								
-								
-								<!-- social-icon -->
-								<a class="social-icon" href="#"><i class="social-icon__icon fa fa-linkedin"></i>
-								</a><!-- End / social-icon -->
-								
-								
-								<!-- social-icon -->
-								<a class="social-icon" href="#"><i class="social-icon__icon fa fa-behance"></i>
-								</a><!-- End / social-icon -->
-								
-								
-								<!-- social-icon -->
-								<a class="social-icon" href="#"><i class="social-icon__icon fa fa-vimeo"></i>
-								</a><!-- End / social-icon -->
-								
-							</div>
-							
-							<!-- 点赞收藏按钮 -->
-							<div class="like-favorite-section mt-30">
-								<div class="like-favorite-buttons">
-									<button type="button" class="btn btn-outline-primary like-btn" id="like-btn" th:attr="data-article-id=${articleId}">
-										<i class="fa fa-heart-o"></i> 
-										<span id="like-count">0</span> 点赞
-									</button>
-									<button type="button" class="btn btn-outline-secondary favorite-btn" id="favorite-btn" th:attr="data-article-id=${articleId}">
-										<i class="fa fa-star-o"></i> 
-										<span id="favorite-count">0</span> 收藏
-									</button>
-								</div>
-								<div id="user-message" class="mt-10" style="font-size: 14px; color: #666;"></div>
-							</div>
-						</div><!-- End /  -->
-						
-						<div class="awe-text-center mt-50">
-							<a class="md-btn md-btn--outline-primary " href="blog.html">返回新闻列表
-							</a>
-						</div>
-					</div>
-				</section>
-				<!-- End / Section -->
-				
-			</div>
-			<!-- End / Content-->
-			
-			<!-- footer -->
-			<div class="footer">
+						<li><a href="/contact.html">联系我们</a></li>
+						<li th:if="${session.user != null}">
+							<span>欢迎，[[${session.user.username}]]</span>
+						</li>
+						<li th:if="${session.user != null}"><a href="/article/list">管理</a></li>
+						<li th:if="${session.user != null}"><a href="/logout">登出</a></li>
+						<li th:if="${session.user == null}"><a href="/login.html">登录</a></li>
+					</ul><!--  -->
+
+				</nav><!-- End / overlay-menu -->
+
+			</div><!-- End / fullscreenmenu__module -->
+
+		</header><!-- End / header -->
+
+		<!-- Content-->
+		<div class="wil-content">
+
+			<!-- Section -->
+			<section class="awe-section">
 				<div class="container">
-					<div class="row">
-						<div class="col-md-6 col-lg-6 ">
-							<p class="footer__coppy">&copy; Copyright <a target="_blank" href="http://www.mobanwang.com/" title="网页模板">网页模板</a>. All rights Reserved.</p>
+
+					<!-- page-title -->
+					<div class="page-title pb-40">
+						<span class="post-detail__cat">科技新闻</span>
+						<h2 class="page-title__title" th:text="${article != null ? article.title : '文章标题'}">文章标题</h2>
+						<div class="post-detail__meta">
+							<span class="date"
+								th:text="${#dates.format(#dates.createNow(), 'yyyy-MM-dd')}">2025-12-25</span>
+							<span class="author"><a href="#">新闻编辑</a></span>
 						</div>
-						<div class="col-md-6 col-lg-6 ">
-							<div class="footer__social">
-								
-								<!-- social-icon -->
-								<a class="social-icon" href="#"><i class="social-icon__icon fa fa-facebook"></i>
-								</a><!-- End / social-icon -->
-								
-								
-								<!-- social-icon -->
-								<a class="social-icon" href="#"><i class="social-icon__icon fa fa-twitter"></i>
-								</a><!-- End / social-icon -->
-								
-								
-								<!-- social-icon -->
-								<a class="social-icon" href="#"><i class="social-icon__icon fa fa-linkedin"></i>
-								</a><!-- End / social-icon -->
-								
-								
-								<!-- social-icon -->
-								<a class="social-icon" href="#"><i class="social-icon__icon fa fa-behance"></i>
-								</a><!-- End / social-icon -->
-								
-								
-								<!-- social-icon -->
-								<a class="social-icon" href="#"><i class="social-icon__icon fa fa-vimeo"></i>
-								</a><!-- End / social-icon -->
-								
+						<div class="page-title__divider"></div>
+					</div><!-- End / page-title -->
+
+				</div>
+			</section>
+			<!-- End / Section -->
+
+
+			<!-- Section -->
+			<section class="awe-section bg-gray">
+				<div class="container">
+
+					<!--  -->
+					<div>
+						<div class="post-detail__media">
+							<img th:src="${article != null && article.coverImage != null ? article.coverImage : '/assets/img/pexels-photo-807034.jpeg'}"
+								alt="" th:if="${article != null && article.coverImage != null}" />
+							<img src="/assets/img/pexels-photo-807034.jpeg" alt=""
+								th:if="${article == null || article.coverImage == null}" />
+						</div>
+						<div class="post-detail__entry row">
+							<div class="col-md-8">
+								<h5 th:if="${article != null && article.summary != null}" th:text="${article.summary}">
+									文章摘要</h5>
+								<div th:if="${article != null && article.content != null}"
+									th:utext="${article.content}">
+									<p>文章内容...</p>
+								</div>
+								<div th:if="${article == null || article.content == null}">
+									<h5>随着5G、人工智能和大数据技术的快速发展，全球媒体行业正在经历一场前所未有的深刻变革。</h5>
+									<p>数字时代的媒体变革已经深刻改变了信息传播的方式。传统媒体正在积极拥抱数字化转型，新媒体平台不断涌现，用户获取信息的渠道更加多元化。<b>在这场变革中，媒体行业面临着新的机遇和挑战。</b>一方面，技术创新为媒体内容的生产、传播和消费提供了更多可能性；另一方面，信息过载、虚假新闻和版权问题也给行业发展带来了困扰。
+									</p>
+
+									<p>未来媒体的发展趋势将呈现出智能化、个性化和融合化的特点。人工智能技术将在内容创作、推荐算法和用户体验优化方面发挥越来越重要的作用。个性化推荐系统将根据用户的兴趣和行为习惯，为其提供定制化的信息服务。传统媒体与新媒体的边界将进一步模糊，融合发展成为必然趋势。
+									</p>
+									<p>面对数字时代的媒体变革，媒体从业者需要不断提升自身的专业素养和技术能力，适应行业发展的新要求。同时，行业也需要建立更加完善的法律法规和自律机制，规范市场秩序，保护用户权益。只有这样，才能推动媒体行业在数字时代实现健康、可持续的发展。
+									</p>
+									<p>专家表示，数字时代的媒体变革是不可逆转的趋势，媒体行业需要积极拥抱变革，不断创新，才能在激烈的市场竞争中立于不败之地。未来，媒体将继续发挥重要的社会功能，为用户提供更加优质、多样的信息服务，推动社会的进步和发展。
+									</p>
+								</div>
 							</div>
+						</div>
+						<div class="sharebox__module">
+							<p class="social-text">分享这篇新闻</p>
+
+							<!-- social-icon -->
+							<a class="social-icon" href="#"><i class="social-icon__icon fa fa-facebook"></i>
+							</a><!-- End / social-icon -->
+
+
+							<!-- social-icon -->
+							<a class="social-icon" href="#"><i class="social-icon__icon fa fa-twitter"></i>
+							</a><!-- End / social-icon -->
+
+
+							<!-- social-icon -->
+							<a class="social-icon" href="#"><i class="social-icon__icon fa fa-linkedin"></i>
+							</a><!-- End / social-icon -->
+
+
+							<!-- social-icon -->
+							<a class="social-icon" href="#"><i class="social-icon__icon fa fa-behance"></i>
+							</a><!-- End / social-icon -->
+
+
+							<!-- social-icon -->
+							<a class="social-icon" href="#"><i class="social-icon__icon fa fa-vimeo"></i>
+							</a><!-- End / social-icon -->
+
+						</div>
+
+						<!-- 隐藏域 存储当前用户ID -->
+						<label type="hidden" id="currentUserId" th:text="${currentUser.id}"></label>
+						<!-- 点赞收藏按钮 -->
+						<div class="like-favorite-section mt-30">
+							<div class="like-favorite-buttons">
+								<button type="button" class="btn btn-outline-primary like-btn" id="like-btn"
+									th:attr="data-article-id=${articleId}">
+									<i class="fa fa-heart-o"></i>
+									<span id="like-count">0</span> 点赞
+								</button>
+								<button type="button" class="btn btn-outline-secondary favorite-btn" id="favorite-btn"
+									th:attr="data-article-id=${articleId}">
+									<i class="fa fa-star-o"></i>
+									<span id="favorite-count">0</span> 收藏
+								</button>
+							</div>
+							<div id="user-message" class="mt-10" style="font-size: 14px; color: #666;"></div>
+						</div>
+					</div><!-- End /  -->
+
+					<div class="awe-text-center mt-50">
+						<a class="md-btn md-btn--outline-primary " href="blog.html">返回新闻列表
+						</a>
+					</div>
+				</div>
+			</section>
+			<!-- End / Section -->
+
+		</div>
+		<!-- End / Content-->
+
+		<!-- footer -->
+		<div class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-md-6 col-lg-6 ">
+						<p class="footer__coppy">&copy; Copyright <a target="_blank" href="http://www.mobanwang.com/"
+								title="网页模板">网页模板</a>. All rights Reserved.</p>
+					</div>
+					<div class="col-md-6 col-lg-6 ">
+						<div class="footer__social">
+
+							<!-- social-icon -->
+							<a class="social-icon" href="#"><i class="social-icon__icon fa fa-facebook"></i>
+							</a><!-- End / social-icon -->
+
+
+							<!-- social-icon -->
+							<a class="social-icon" href="#"><i class="social-icon__icon fa fa-twitter"></i>
+							</a><!-- End / social-icon -->
+
+
+							<!-- social-icon -->
+							<a class="social-icon" href="#"><i class="social-icon__icon fa fa-linkedin"></i>
+							</a><!-- End / social-icon -->
+
+
+							<!-- social-icon -->
+							<a class="social-icon" href="#"><i class="social-icon__icon fa fa-behance"></i>
+							</a><!-- End / social-icon -->
+
+
+							<!-- social-icon -->
+							<a class="social-icon" href="#"><i class="social-icon__icon fa fa-vimeo"></i>
+							</a><!-- End / social-icon -->
+
 						</div>
 					</div>
 				</div>
-			</div><!-- End / footer -->
-			
-		</div>
-		<!-- Vendors-->
-		<script type="text/javascript" src="/assets/vendors/jquery/jquery.min.js"></script>
-		<script type="text/javascript" src="/assets/vendors/imagesloaded/imagesloaded.pkgd.js"></script>
-		<script type="text/javascript" src="/assets/vendors/isotope-layout/isotope.pkgd.js"></script>
-		<script type="text/javascript" src="/assets/vendors/jquery-one-page/jquery.nav.min.js"></script>
-		<script type="text/javascript" src="/assets/vendors/jquery.easing/jquery.easing.min.js"></script>
-		<script type="text/javascript" src="/assets/vendors/jquery.matchHeight/jquery.matchHeight.min.js"></script>
-		<script type="text/javascript" src="/assets/vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
-		<script type="text/javascript" src="/assets/vendors/masonry-layout/masonry.pkgd.js"></script>
-		<script type="text/javascript" src="/assets/vendors/jquery.waypoints/jquery.waypoints.min.js"></script>
-		<script type="text/javascript" src="/assets/vendors/swiper/swiper.jquery.js"></script>
-		<script type="text/javascript" src="/assets/vendors/menu/menu.js"></script>
-		<script type="text/javascript" src="/assets/vendors/typed/typed.min.js"></script>
-		<!-- App-->
+			</div>
+		</div><!-- End / footer -->
+
+	</div>
+	<!-- Vendors-->
+	<script type="text/javascript" src="/assets/vendors/jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="/assets/vendors/imagesloaded/imagesloaded.pkgd.js"></script>
+	<script type="text/javascript" src="/assets/vendors/isotope-layout/isotope.pkgd.js"></script>
+	<script type="text/javascript" src="/assets/vendors/jquery-one-page/jquery.nav.min.js"></script>
+	<script type="text/javascript" src="/assets/vendors/jquery.easing/jquery.easing.min.js"></script>
+	<script type="text/javascript" src="/assets/vendors/jquery.matchHeight/jquery.matchHeight.min.js"></script>
+	<script type="text/javascript" src="/assets/vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
+	<script type="text/javascript" src="/assets/vendors/masonry-layout/masonry.pkgd.js"></script>
+	<script type="text/javascript" src="/assets/vendors/jquery.waypoints/jquery.waypoints.min.js"></script>
+	<script type="text/javascript" src="/assets/vendors/swiper/swiper.jquery.js"></script>
+	<script type="text/javascript" src="/assets/vendors/menu/menu.js"></script>
+	<script type="text/javascript" src="/assets/vendors/typed/typed.min.js"></script>
+	<!-- App-->
 	<script type="text/javascript" src="/assets/js/main.js"></script>
-	
+
 	<!-- Like/Favorite JavaScript -->
 	<script>
-		$(function() {
-			// 从session获取用户ID，如果没有则使用默认值1
-			var currentUserId = /*[[${session.user != null ? session.user.id : 1}]]*/ 1;
+		$(function () {
+			var currentUserId = $('#currentUserId').text();
 			var articleId = $('#like-btn').data('article-id');
-			
+
 			// 初始化加载点赞收藏状态
 			function loadSocialStatus() {
 				if (!articleId) return;
-				
+
 				$.get('/social/status', {
 					articleId: articleId,
 					userId: currentUserId
-				}, function(response) {
+				}, function (response) {
 					if (response.success) {
 						updateUI(response);
 					}
-				}).fail(function() {
+				}).fail(function () {
 					console.log('获取状态失败');
 				});
 			}
-			
+
 			// 更新UI状态
 			function updateUI(data) {
 				$('#like-count').text(data.likeCount);
 				$('#favorite-count').text(data.favoriteCount);
-				
+
 				var likeBtn = $('#like-btn');
 				var favoriteBtn = $('#favorite-btn');
-				
+
 				if (data.liked) {
 					likeBtn.addClass('liked');
 					likeBtn.find('i').removeClass('fa-heart-o').addClass('fa-heart');
@@ -303,7 +330,7 @@
 					likeBtn.removeClass('liked');
 					likeBtn.find('i').removeClass('fa-heart').addClass('fa-heart-o');
 				}
-				
+
 				if (data.favorited) {
 					favoriteBtn.addClass('favorited');
 					favoriteBtn.find('i').removeClass('fa-star-o').addClass('fa-star');
@@ -312,72 +339,77 @@
 					favoriteBtn.find('i').removeClass('fa-star').addClass('fa-star-o');
 				}
 			}
-			
+
 			// 显示消息
 			function showMessage(message, type) {
 				$('#user-message').text(message).removeClass('text-success text-danger').addClass(type === 'success' ? 'text-success' : 'text-danger');
-				setTimeout(function() {
+				setTimeout(function () {
 					$('#user-message').text('');
 				}, 3000);
 			}
-			
+
 			// 点赞按钮点击事件
-			$('#like-btn').on('click', function() {
-				if (!currentUserId || currentUserId === 1) {
+			$('#like-btn').on('click', function () {
+				if (!currentUserId) {
 					showMessage('请先登录后再点赞', 'error');
 					return;
 				}
-				
+
 				var btn = $(this);
 				btn.prop('disabled', true);
-				
+
 				$.post('/social/like', {
 					articleId: articleId,
 					userId: currentUserId
-				}, function(response) {
+				}, function (response) {
 					if (response.success) {
-						updateUI(response);
+						//刷新页面
+						location.reload();
 						showMessage(response.message, 'success');
 					} else {
 						showMessage(response.message, 'error');
 					}
-				}).fail(function() {
+				}).fail(function () {
 					showMessage('点赞操作失败', 'error');
-				}).always(function() {
+				}).always(function () {
 					btn.prop('disabled', false);
 				});
+
 			});
-			
+
 			// 收藏按钮点击事件
-			$('#favorite-btn').on('click', function() {
-				if (!currentUserId || currentUserId === 1) {
+			$('#favorite-btn').on('click', function () {
+				if (!currentUserId) {
 					showMessage('请先登录后再收藏', 'error');
 					return;
 				}
-				
+
 				var btn = $(this);
 				btn.prop('disabled', true);
-				
+
 				$.post('/social/favorite', {
 					articleId: articleId,
 					userId: currentUserId
-				}, function(response) {
+				}, function (response) {
 					if (response.success) {
-						updateUI(response);
+						//刷新页面
+						location.reload();
 						showMessage(response.message, 'success');
 					} else {
 						showMessage(response.message, 'error');
 					}
-				}).fail(function() {
+				}).fail(function () {
 					showMessage('收藏操作失败', 'error');
-				}).always(function() {
+				}).always(function () {
 					btn.prop('disabled', false);
 				});
+
 			});
-			
+
 			// 页面加载时获取状态
 			loadSocialStatus();
 		});
 	</script>
-	</body>
+</body>
+
 </html>

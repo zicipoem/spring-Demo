@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * 点赞收藏控制器
@@ -37,11 +36,11 @@ public class SocialController {
         Map<String, Object> result = new HashMap<>();
         
         try {
-            Optional<Like> existingLike = likeDao.findByArticleIdAndUserId(articleId, userId);
+            Like existingLike = likeDao.findByArticleIdAndUserId(articleId, userId);
             
-            if (existingLike.isPresent()) {
+            if (existingLike != null) {
                 // 已经点赞过，取消点赞
-                likeDao.delete(existingLike.get());
+                likeDao.delete(existingLike);
                 Article article = articleDao.findById(articleId).orElse(null);
                 if (article != null && article.getLikeCount() > 0) {
                     article.setLikeCount(article.getLikeCount() - 1);
@@ -86,11 +85,11 @@ public class SocialController {
         Map<String, Object> result = new HashMap<>();
         
         try {
-            Optional<Favorite> existingFavorite = favoriteDao.findByArticleIdAndUserId(articleId, userId);
+            Favorite existingFavorite = favoriteDao.findByArticleIdAndUserId(articleId, userId).orElse(null);
             
-            if (existingFavorite.isPresent()) {
+            if (existingFavorite != null) {
                 // 已经收藏过，取消收藏
-                favoriteDao.delete(existingFavorite.get());
+                favoriteDao.delete(existingFavorite);
                 Article article = articleDao.findById(articleId).orElse(null);
                 if (article != null && article.getFavoriteCount() > 0) {
                     article.setFavoriteCount(article.getFavoriteCount() - 1);
@@ -135,8 +134,8 @@ public class SocialController {
         Map<String, Object> result = new HashMap<>();
         
         try {
-            boolean liked = likeDao.findByArticleIdAndUserId(articleId, userId).isPresent();
-            boolean favorited = favoriteDao.findByArticleIdAndUserId(articleId, userId).isPresent();
+            boolean liked = likeDao.findByArticleIdAndUserId(articleId, userId) != null;
+            boolean favorited = favoriteDao.findByArticleIdAndUserId(articleId, userId) != null;
             
             Long likeCount = likeDao.countByArticleId(articleId);
             Long favoriteCount = favoriteDao.countByArticleId(articleId);

@@ -41,8 +41,8 @@
                     </li>
                     <li><a href="/contact.html">联系我们</a>
                     </li>
-                    <li th:if="${session.user != null}"><a href="/article/list">管理页</a></li>
-                    <li th:if="${session.user == null}"><a href="/login.html">登录</a></li>
+                    <li><a href="/article/list">管理页</a></li>
+                    <li><a href="/login.html">登录</a></li>
                 </ul><!--  -->
             </nav><!-- End / overlay-menu -->
         </div><!-- End / fullscreenmenu__module -->
@@ -100,11 +100,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="item:${list}" th:attr="data-id=${item.id}, data-username=${item.username}, data-url=${item.url}">
+                                    <tr th:each="item:${list}" th:attr="data-id=${item.id}, data-username=${item.name}, data-avatar=${item.avatar}">
                                         <td th:text="${item.id}"></td>
-                                        <td th:text="${item.username}"></td>
+                                        <td th:text="${item.name}"></td>
                                         <td>
-                                            <img th:src="${item.url}" width="100" height="100" alt="头像"/>
+                                            <img th:src="${item.avatar}" width="100" height="100" alt="头像"/>
                                         </td>
                                         <td>
                                             <button type="button" class="btn btn-primary edit" th:attr="data-id=${item.id}">编辑</button>

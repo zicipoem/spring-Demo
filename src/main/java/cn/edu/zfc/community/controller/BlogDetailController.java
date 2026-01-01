@@ -8,6 +8,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.zfc.community.dao.ArticleDao;
 import cn.edu.zfc.community.pojo.Article;
+import cn.edu.zfc.community.utils.UserUtils;
+
 import java.util.Optional;
 
 @RestController
@@ -29,6 +31,9 @@ public class BlogDetailController {
         // 获取所有文章列表
         mv.addObject("articles", articleDao.findAll());
         mv.addObject("articleId", id);  // 传递文章ID供点赞收藏功能使用
+
+        mv.addObject("currentUser", UserUtils.getCurrentUser());
+        mv.addObject("isLogin", UserUtils.getCurrentUser() != null);
         return mv;
     }
 }

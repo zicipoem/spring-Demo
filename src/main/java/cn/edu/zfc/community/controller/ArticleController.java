@@ -4,6 +4,8 @@ package cn.edu.zfc.community.controller;
 import cn.edu.zfc.community.dao.ArticleDao;
 import cn.edu.zfc.community.pojo.Article;
 import cn.edu.zfc.community.pojo.Nav;
+
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
  */
 @RestController
 @RequestMapping("/article")
+@RequiresRoles("admin")
 public class ArticleController {
     @Autowired
     private ArticleDao articleDao;
