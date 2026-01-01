@@ -9,9 +9,9 @@ $(function () {
     $('.add').on('click', function () {
         var data = {
             id: $('#id').val(),
-            username: $('#username').val(),
+            name: $('#name').val(),
             password: $('#password').val(),
-            url: $('#url').val()
+            avatar: $('#avatar').val()
         };
         $.post('/user/add/model', data, function (res) {
             location.reload();
@@ -37,9 +37,9 @@ $(function () {
     $(document).on('click', '.edit', function () {
         var tr = $(this).closest('tr');
         $('#id').val(tr.data('id'));
-        $('#username').val(tr.data('username'));
-        $('#url').val(tr.data('url'));
-        $('#password').val('');
+        $('#name').val(tr.data('username'));
+        $('#avatar').val(tr.data('avatar'));
+        $('#password').val('password');
         $('#save-btn').text('保存');
         $('html,body').animate({scrollTop: 0}, 200);
     });

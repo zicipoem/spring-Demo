@@ -12,4 +12,5 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface ArticleDao extends JpaRepository<Article, Long>, JpaSpecificationExecutor<Article> {
+    Article findByTitle(String title);
 }
