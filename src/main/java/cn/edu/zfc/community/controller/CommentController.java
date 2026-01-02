@@ -5,17 +5,16 @@ import cn.edu.zfc.community.pojo.Comment;
 import cn.edu.zfc.community.pojo.Nav;
 import cn.edu.zfc.community.service.CommentService;
 import cn.edu.zfc.community.utils.UserUtils;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/comment")
-@RequiresRoles("admin")
 public class CommentController {
     
     @Autowired
@@ -74,6 +73,8 @@ public class CommentController {
             comment.setArticleId(articleId);
             comment.setUserId(UserUtils.getCurrentUser().getId());
             comment.setContent(content);
+            comment.setAvatar(UserUtils.getCurrentUser().getAvatar());
+            comment.setCreatedAt(LocalDateTime.now());
             
             Comment savedComment = commentService.addComment(comment);
             result.put("success", true);

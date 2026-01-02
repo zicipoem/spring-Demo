@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>文章管理</title>
+    <title>留言管理</title>
     <!-- Fonts-->
     <link rel="stylesheet" type="text/css" href="/assets/fonts/fontawesome/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/fonts/pe-icon/pe-icon.css">
@@ -114,19 +114,6 @@
         .table tbody tr:hover {
             background-color: #f8f9fa;
         }
-        .cover-img {
-            border-radius: 8px;
-            border: 2px solid #667eea;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-            max-width: 100px;
-            height: 60px;
-            object-fit: cover;
-        }
-        .cover-img:hover {
-            transform: scale(1.05);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
         .admin-tabs {
             display: flex;
             flex-wrap: wrap;
@@ -145,11 +132,31 @@
             background: #f8f9fa;
             border-color: #667eea;
             color: #667eea;
+            transform: none;
+            box-shadow: none;
         }
         .admin-tabs .btn.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-color: transparent;
+        }
+        .comment-content {
+            max-width: 300px;
+            word-wrap: break-word;
+        }
+        .comment-meta {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .message-info {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #333;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
         }
         @media (max-width: 768px) {
             .table {
@@ -159,9 +166,29 @@
                 padding: 0.5rem 1rem;
                 font-size: 0.9rem;
             }
+            .btn-sm {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            .comment-content {
+                max-width: 150px;
+            }
         }
     </style>
 </head>
+
+<!-- 在 </body> 前添加 -->
+<div style="position: fixed; bottom: 20px; right: 20px; z-index: 10000;">
+    <button onclick="testMenu()" style="background: red; color: white; padding: 10px;">测试菜单</button>
+</div>
+
+<script>
+function testMenu() {
+    $('.fullscreenmenu__module').addClass('active');
+    $('body').css('overflow', 'hidden');
+}
+</script>
+
 <body>
 <div class="page-wrap" id="root">
     <!-- header -->
@@ -178,19 +205,20 @@
             <nav class="overlay-menu">
                 <!--  -->
                 <ul class="wil-menu-list">
-                    <li><a href="/index.html">首页</a>
-                    </li>
-                    <li><a href="/about.html">关于我们</a>
-                    </li>
-                    <li><a href="/work.html">栏目分类</a>
-                    </li>
-                    <li><a href="/blog.html">新闻列表</a>
-                    </li>
-                    <li><a href="/message.html">留言板</a>
-                    </li>
-                    <li th:if="${session.user != null}"><a href="/article/list">管理页</a></li>
-                    <li th:if="${session.user == null}"><a href="/login.html">登录</a></li>
-                </ul><!--  -->
+							<li class="current-menu-item"><a href="/index.html">首页</a>
+							</li>
+							<li><a href="/about.html">关于我们</a>
+							</li>
+							<li><a href="/work.html">栏目分类</a>
+							</li>
+							<li><a href="/blog.html">新闻列表</a>
+							</li>
+							<li><a href="/message.html">留言板</a></li>
+							
+							<li th:if="${isAdmin}"><a href="/article/list">管理</a></li>
+
+							<li><a href="/logout">登出</a></li>
+							</ul>
             </nav><!-- End / overlay-menu -->
         </div><!-- End / fullscreenmenu__module -->
     </header><!-- End / header -->
@@ -202,15 +230,15 @@
             <div class="container">
                 <!-- 页面标题 -->
                 <div class="page-title">
-                    <h2 class="page-title__title">文章管理</h2>
+                    <h2 class="page-title__title">留言管理</h2>
                     <div class="page-title__divider"></div>
                     <div class="admin-tabs">
-                        <a class="btn btn-sm active" href="/article/list">文章管理</a>
+                        <a class="btn btn-sm" href="/article/list">文章管理</a>
                         <a class="btn btn-sm" th:classappend="${page=='user'} ? ' active'" href="/user/list">用户管理</a>
                         <a class="btn btn-sm" href="/article/like/list">点赞管理</a>
                         <a class="btn btn-sm" href="/article/favorite/list">收藏管理</a>
                         <a class="btn btn-sm" th:classappend="${page=='comment'} ? ' active'" href="/comment/list">评论管理</a>
-                        <a class="btn btn-sm" th:classappend="${page=='message'} ? ' active'" href="/message/list">留言管理</a>
+                        <a class="btn btn-sm active" href="/message/list">留言管理</a>
                     </div>
                 </div><!-- End / page-title -->
             </div>
@@ -221,81 +249,34 @@
             <div class="container">
                 <div class="row">
                     <div class="col-lg-12">
-                        <div class="article-form-container">
-                            <div class="form-title">
-                                <i class="fa fa-edit"></i> 文章信息
-                            </div>
-                            <form class="form-horizontal" id="article-form">
-                                <input type="hidden" id="id" name="id" />
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="title">
-                                                <i class="fa fa-heading"></i> 标题
-                                            </label>
-                                            <input type="text" class="form-control" id="title" name="title" placeholder="请输入新闻标题" required>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="coverImage">
-                                                <i class="fa fa-image"></i> 封面图片
-                                            </label>
-                                            <input type="url" class="form-control" id="coverImage" name="coverImage" placeholder="请输入封面图片URL">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <label for="summary">
-                                        <i class="fa fa-file-text"></i> 摘要
-                                    </label>
-                                    <textarea class="form-control" id="summary" name="summary" rows="3" placeholder="请输入新闻摘要"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="content">
-                                        <i class="fa fa-pencil"></i> 内容
-                                    </label>
-                                    <textarea class="form-control" id="content" name="content" rows="6" placeholder="请输入新闻内容（支持HTML格式）"></textarea>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <button type="button" class="btn btn-block btn-success add" id="save-btn">
-                                            <i class="fa fa-save"></i> <span id="save-text">添加文章</span>
-                                        </button>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <button type="button" class="btn btn-block btn-secondary reset" id="reset-btn">
-                                            <i class="fa fa-refresh"></i> 重置
-                                        </button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                        <div class="box" style="margin-top:20px;">
+                        <div class="box">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>编号</th>
-                                        <th>标题</th>
-                                        <th>摘要</th>
+                                        <th>留言ID</th>
+                                        <th>姓名</th>
+                                        <th>邮箱</th>
                                         <th>内容</th>
-                                        <th>封面图片</th>
+                                        <th>时间</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="item : ${list}" th:attr="data-id=${item.id}, data-title=${item.title}, data-summary=${item.summary}, data-content=${item.content}, data-coverImage=${item.coverImage}">
+                                    <tr th:each="item : ${list}" th:attr="data-id=${item.id}">
                                         <td th:text="${item.id}"></td>
-                                        <td th:text="${item.title}"></td>
-                                        <td th:text="${item.summary}"></td>
-                                        <td th:text="${#strings.abbreviate(item.content, 50)}"></td>
+                                        <td th:text="${item.name}">姓名</td>
+                                        <td th:text="${item.email}">邮箱</td>
                                         <td>
-                                            <img th:src="${item.coverImage}" width="100" height="100" alt="封面图片" th:if="${item.coverImage != null}" class="cover-img"/>
-                                            <span th:if="${item.coverImage == null}">无封面</span>
+                                            <div class="comment-content" th:text="${#strings.abbreviate(item.content,50)}">内容</div>
                                         </td>
+                                        <td th:text="${item.createdAt != null ? item.createdAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd HH:mm')) : ''}">时间</td>
                                         <td>
-                                            <button type="button" class="btn btn-primary edit" th:attr="data-id=${item.id}">编辑</button>
-                                            <button type="button" class="btn btn-danger del" th:attr="data-id=${item.id}">删除</button>
+                                            <button type="button" class="btn btn-info btn-sm" th:onclick="'viewMessage(' + ${item.id} + ')'">
+                                                <i class="fa fa-eye"></i> 查看
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-sm" th:onclick="'deleteMessage(' + ${item.id} + ')'">
+                                                <i class="fa fa-trash"></i> 删除
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -308,22 +289,36 @@
 
     </div><!-- End / Content-->
 
-    <!-- Footer scripts -->
     <script type="text/javascript" src="/assets/vendors/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/assets/vendors/jquery.matchHeight/jquery.matchHeight.min.js"></script>
-    <script type="text/javascript" src="/assets/vendors/jquery.waypoints/jquery.waypoints.min.js"></script>
-    <script type="text/javascript" src="/assets/vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script type="text/javascript" src="/assets/vendors/isotope-layout/isotope.pkgd.js"></script>
-    <script type="text/javascript" src="/assets/vendors/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script type="text/javascript" src="/assets/vendors/masonry-layout/masonry.pkgd.js"></script>
-    <script type="text/javascript" src="/assets/vendors/slider/slider.js"></script>
-    <script type="text/javascript" src="/assets/vendors/menu/menu.js"></script>
-    <script type="text/javascript" src="/assets/vendors/typed/typed.min.js"></script>
-    <script type="text/javascript" src="/assets/vendors/swiper/swiper.jquery.js"></script>
-    <script type="text/javascript" src="/assets/vendors/jquery-one-page/jquery.nav.min.js"></script>
-    <script type="text/javascript" src="/assets/vendors/jquery.easing/jquery.easing.min.js"></script>
     <script type="text/javascript" src="/assets/js/main.js"></script>
-    <script type="text/javascript" src="/js/articleList.js"></script>
-</div><!-- End / page-wrap -->
+    <script>
+        function deleteMessage(id) {
+            if (confirm('确定要删除这条留言吗？')) {
+                $.post('/message/delete/' + id, function (res) {
+                    if (res.success) {
+                        alert('删除成功'); location.reload();
+                    } else {
+                        alert('删除失败: ' + res.message);
+                    }
+                }).fail(function () { alert('请求失败'); });
+            }
+        }
+        function viewMessage(id) {
+            $.get('/message/view/' + id, function (res) {
+                if (res.success) {
+                    var m = res.data;
+                    var win = window.open('', '_blank', 'width=600,height=400');
+                    win.document.write('<h3>留言详情</h3>');
+                    win.document.write('<p><strong>姓名：</strong>' + (m.name||'匿名') + '</p>');
+                    win.document.write('<p><strong>邮箱：</strong>' + (m.email||'') + '</p>');
+                    win.document.write('<p><strong>内容：</strong><pre>' + (m.content||'') + '</pre></p>');
+                    win.document.write('<p><strong>时间：</strong>' + (m.createdAt||'') + '</p>');
+                } else {
+                    alert(res.message || '获取失败');
+                }
+            }).fail(function () { alert('请求失败'); });
+        }
+    </script>
+</div>
 </body>
 </html>

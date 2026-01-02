@@ -200,7 +200,7 @@
                     </li>
                     <li><a href="/blog.html">新闻列表</a>
                     </li>
-                    <li><a href="/contact.html">联系我们</a>
+                    <li><a href="/message.html">留言板</a>
                     </li>
                     <li th:if="${session.user != null}"><a href="/article/list">管理页</a></li>
                     <li th:if="${session.user == null}"><a href="/login.html">登录</a></li>
@@ -224,6 +224,7 @@
                         <a class="btn btn-sm" href="/article/like/list">点赞管理</a>
                         <a class="btn btn-sm" href="/article/favorite/list">收藏管理</a>
                         <a class="btn btn-sm active" href="/comment/list">评论管理</a>
+                        <a class="btn btn-sm" th:classappend="${page=='message'} ? ' active'" href="/message/list">留言管理</a>
                     </div>
                 </div><!-- End / page-title -->
             </div>
@@ -247,14 +248,14 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="item:${list}" th:attr="data-id=${item.id}">
+                                    <tr th:each="item : ${list}" th:attr="data-id=${item.id}">
                                         <td th:text="${item.id}"></td>
                                         <td th:text="${item.articleId}"></td>
                                         <td th:text="${item.userId}"></td>
                                         <td>
                                             <div class="comment-content" th:text="${#strings.abbreviate(item.content, 50)}">评论内容</div>
                                         </td>
-                                        <td th:text="${#dates.format(item.createdAt, 'yyyy-MM-dd HH:mm')}">2024-01-01 12:00</td>
+                                        <td th:text="${item.createdAt != null ? item.createdAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd HH:mm')) : ''}">2024-01-01 12:00</td>
                                         <td>
                                             <button type="button" class="btn btn-info btn-sm" th:onclick="'viewComment(' + ${item.id} + ')'">
                                                 <i class="fa fa-eye"></i> 查看

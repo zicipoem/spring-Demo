@@ -24,6 +24,7 @@ public class Nav implements Serializable {
         list.add(new Nav("/customer/list", "客户", name.equals("customer")));
         list.add(new Nav("/article/list", "文章", name.equals("article")));
         list.add(new Nav("/comment/list", "评论", name.equals("comment")));
+        list.add(new Nav("/message/list", "留言", name.equals("message")));
         return list;
     }
 }

@@ -64,6 +64,162 @@
 		.favorite-btn.favorited i {
 			color: #212529;
 		}
+
+		/* 评论区域样式 */
+		.comments-section {
+			margin-top: 40px;
+			padding-top: 30px;
+			border-top: 2px solid #f0f0f0;
+		}
+
+		.comments-title {
+			font-size: 1.5rem;
+			font-weight: 600;
+			color: #333;
+			margin-bottom: 20px;
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.comments-title i {
+			color: #667eea;
+		}
+
+		.comment-form {
+			background: #f8f9fa;
+			padding: 20px;
+			border-radius: 10px;
+			margin-bottom: 30px;
+			border: 1px solid #e0e0e0;
+		}
+
+		.comment-form .form-group {
+			margin-bottom: 15px;
+		}
+
+		.comment-form textarea {
+			border: 2px solid #e0e0e0;
+			border-radius: 8px;
+			padding: 12px;
+			font-size: 14px;
+			resize: vertical;
+			min-height: 80px;
+			transition: all 0.3s ease;
+		}
+
+		.comment-form textarea:focus {
+			border-color: #667eea;
+			box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+			outline: none;
+		}
+
+		.comment-item {
+			background: white;
+			border: 1px solid #e0e0e0;
+			border-radius: 10px;
+			padding: 15px;
+			margin-bottom: 15px;
+			transition: all 0.3s ease;
+		}
+
+		.comment-item:hover {
+			box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+			border-color: #667eea;
+		}
+
+		.comment-header {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 10px;
+		}
+
+		.comment-author {
+			font-weight: 600;
+			color: #333;
+			display: flex;
+			align-items: center;
+			gap: 8px;
+		}
+
+		.comment-author i {
+			color: #667eea;
+		}
+
+		.comment-date {
+			color: #666;
+			font-size: 0.9rem;
+		}
+
+		.comment-content {
+			color: #555;
+			line-height: 1.6;
+			word-wrap: break-word;
+		}
+
+		.comment-actions {
+			margin-top: 10px;
+			text-align: right;
+		}
+
+		.comment-delete-btn {
+			background: none;
+			border: none;
+			color: #dc3545;
+			cursor: pointer;
+			font-size: 0.9rem;
+			padding: 5px 10px;
+			border-radius: 5px;
+			transition: all 0.3s ease;
+		}
+
+		.comment-delete-btn:hover {
+			background: #dc3545;
+			color: white;
+		}
+
+		.no-comments {
+			text-align: center;
+			color: #666;
+			font-style: italic;
+			padding: 30px;
+		}
+
+		.login-prompt {
+			background: #fff3cd;
+			border: 1px solid #ffeaa7;
+			border-radius: 8px;
+			padding: 15px;
+			margin-bottom: 20px;
+			color: #856404;
+			text-align: center;
+		}
+
+		.login-prompt a {
+			color: #667eea;
+			text-decoration: none;
+			font-weight: 600;
+		}
+
+		.login-prompt a:hover {
+			text-decoration: underline;
+		}
+
+		@media (max-width: 768px) {
+			.comments-section {
+				margin-top: 30px;
+				padding-top: 20px;
+			}
+			
+			.comment-form {
+				padding: 15px;
+			}
+			
+			.comment-item {
+				padding: 12px;
+			}
+		}
 	</style>
 	<!-- App & fonts-->
 	<link rel="stylesheet" type="text/css"
@@ -102,9 +258,9 @@
 						</li>
 						<li><a href="/blog.html">新闻列表</a>
 						</li>
-						<li><a href="/contact.html">联系我们</a></li>
-						
-						<li th:if="${isAdmin}"><a href="/article/list">管理</a></li>
+							<li><a href="/message.html">留言板</a></li>
+
+							<li th:if="${isAdmin}"><a href="/article/list">管理</a></li>
 
 						<li><a href="/logout">登出</a></li>
 						</ul>
@@ -204,7 +360,8 @@
 						</div>
 
 						<!-- 隐藏域 存储当前用户ID -->
-						<label type="hidden" id="currentUserId" th:text="${currentUser.id}"></label>
+						<label type="hidden" id="currentUserId" th:text="${currentUser != null ? currentUser.id : ''}"></label>
+						
 						<!-- 点赞收藏按钮 -->
 						<div class="like-favorite-section mt-30">
 							<div class="like-favorite-buttons">
@@ -220,6 +377,66 @@
 								</button>
 							</div>
 							<div id="user-message" class="mt-10" style="font-size: 14px; color: #666;"></div>
+						</div>
+
+						<!-- 评论区域 -->
+						<div class="comments-section">
+							<h3 class="comments-title">
+								<i class="fa fa-comments"></i>
+								评论 (<span id="comment-count" th:text="${comments != null ? comments.size() : 0}">0</span>)
+							</h3>
+
+							<!-- 登录提示 -->
+							<div class="login-prompt" th:if="${!isLogin}">
+								<i class="fa fa-info-circle"></i>
+								请 <a href="/login.html">登录</a> 后发表评论
+							</div>
+
+							<!-- 评论表单 -->
+							<div class="comment-form" th:if="${isLogin}">
+								<div class="form-group">
+									<label for="comment-content">
+										<i class="fa fa-edit"></i> 发表评论
+									</label>
+									<textarea id="comment-content" name="content" class="form-control" 
+										placeholder="请输入您的评论..." maxlength="1000" rows="4"></textarea>
+									<small class="form-text text-muted">
+										最多1000个字符
+									</small>
+								</div>
+								<button type="button" class="btn btn-primary" id="submit-comment">
+									<i class="fa fa-paper-plane"></i> 发表评论
+								</button>
+							</div>
+
+							<!-- 评论列表 -->
+							<div id="comments-list">
+								<div th:if="${comments != null and not #lists.isEmpty(comments)}">
+									<div th:each="comment : ${comments}" class="comment-item" th:attr="data-comment-id=${comment.id}">
+										<div class="comment-header">
+											<div class="comment-author">
+												<i class="fa fa-user"></i>
+												用户<span th:text="${comment.userId}">1</span>
+											</div>
+											<div class="comment-date" th:text="${comment.createdAt != null ? 
+												comment.createdAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd HH:mm')) : ''}">
+												2024-01-01 12:00
+											</div>
+										</div>
+										<div class="comment-content" th:text="${comment.content}">评论内容</div>
+										<div class="comment-actions" th:if="${currentUser != null and (isAdmin or currentUser.id == comment.userId)}">
+											<button type="button" class="comment-delete-btn" 
+												th:onclick="'deleteComment(' + ${comment.id} + ')'">
+												<i class="fa fa-trash"></i> 删除
+											</button>
+										</div>
+									</div>
+								</div>
+								<div class="no-comments" th:if="${comments == null or #lists.isEmpty(comments)}">
+									<i class="fa fa-comments-o"></i>
+									暂无评论，快来抢沙发吧！
+								</div>
+							</div>
 						</div>
 					</div><!-- End /  -->
 
@@ -407,6 +624,81 @@
 
 			// 页面加载时获取状态
 			loadSocialStatus();
+		});
+
+		// 评论相关功能
+		$(function () {
+			var articleId = $('#like-btn').data('article-id');
+			var currentUserId = $('#currentUserId').text();
+
+			// 发表评论
+			$('#submit-comment').on('click', function () {
+				var content = $('#comment-content').val().trim();
+				
+				if (!content) {
+					alert('请输入评论内容');
+					return;
+				}
+
+				if (content.length > 1000) {
+					alert('评论内容不能超过1000个字符');
+					return;
+				}
+
+				var btn = $(this);
+				btn.prop('disabled', true).html('<i class="fa fa-spinner fa-spin"></i> 发表中...');
+
+				$.post('/comment/add', {
+					articleId: articleId,
+					content: content
+				}, function (response) {
+					if (response.success) {
+						// 清空输入框
+						$('#comment-content').val('');
+						// 刷新页面以显示新评论
+						location.reload();
+					} else {
+						alert(response.message || '评论失败');
+					}
+				}).fail(function () {
+					alert('评论失败');
+				}).always(function () {
+					btn.prop('disabled', false).html('<i class="fa fa-paper-plane"></i> 发表评论');
+				});
+			});
+
+			// 删除评论
+			window.deleteComment = function (commentId) {
+				if (!confirm('确定要删除这条评论吗？')) {
+					return;
+				}
+
+				$.post('/comment/delete/' + commentId, function (response) {
+					if (response.success) {
+						// 移除评论项
+						$('[data-comment-id="' + commentId + '"]').fadeOut(300, function () {
+							$(this).remove();
+							// 更新评论数量
+							var currentCount = parseInt($('#comment-count').text());
+							$('#comment-count').text(currentCount - 1);
+							
+							// 如果没有评论了，显示"暂无评论"
+							if (currentCount - 1 === 0) {
+								$('#comments-list').html(`
+									<div class="no-comments">
+										<i class="fa fa-comments-o"></i>
+										暂无评论，快来抢沙发吧！
+									</div>
+								`);
+							}
+						});
+					} else {
+						alert(response.message || '删除失败');
+					}
+				}).fail(function () {
+					alert('删除失败');
+				});
+			};
 		});
 	</script>
 </body>

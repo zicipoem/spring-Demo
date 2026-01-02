@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.zfc.community.dao.ArticleDao;
+import cn.edu.zfc.community.utils.UserUtils;
 
 @RestController
 public class BlogController {
@@ -16,7 +17,8 @@ public class BlogController {
     @RequestMapping("/blog.html")
     public ModelAndView blog() {
         ModelAndView mv = new ModelAndView("blog");
-        // 获取所有文章列表
+        mv.addObject("isAdmin", UserUtils.isAdmin());
+        mv.addObject("user", UserUtils.getCurrentUser());
         mv.addObject("articles", articleDao.findAll());
         return mv;
     }

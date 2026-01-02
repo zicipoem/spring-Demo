@@ -10,19 +10,20 @@ import java.util.List;
 
 @Repository
 public interface CommentDao extends JpaRepository<Comment, Long> {
-    /**
-     * 统计指定文章的评论数量
-     */
-    @Query("SELECT COUNT(c) FROM Comment c WHERE c.articleId = :articleId")
-    Long countByArticleId(@Param("articleId") Long articleId);
     
     /**
-     * 根据文章ID查找评论
+     * 根据文章ID查询评论列表
      */
     List<Comment> findByArticleId(Long articleId);
     
     /**
-     * 根据文章ID删除所有评论
+     * 统计指定文章的评论数量
      */
-    void deleteByArticleId(Long articleId);
+    Long countByArticleId(Long articleId);
+    
+    /**
+     * 查询最新的评论（按时间倒序）
+     */
+    @Query("SELECT c FROM Comment c ORDER BY c.createdAt DESC")
+    List<Comment> findLatestComments();
 }
