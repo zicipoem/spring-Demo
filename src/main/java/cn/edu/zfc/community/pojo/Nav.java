@@ -23,6 +23,7 @@ public class Nav implements Serializable {
         List<Nav> list = new ArrayList<>();
         list.add(new Nav("/customer/list", "客户", name.equals("customer")));
         list.add(new Nav("/article/list", "文章", name.equals("article")));
+        list.add(new Nav("/comment/list", "评论", name.equals("comment")));
         return list;
     }
 }

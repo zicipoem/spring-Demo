@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>用户管理</title>
+    <title>评论管理</title>
     <!-- Fonts-->
     <link rel="stylesheet" type="text/css" href="/assets/fonts/fontawesome/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/fonts/pe-icon/pe-icon.css">
@@ -80,6 +80,14 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(245, 87, 108, 0.3);
         }
+        .btn-info {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+        }
+        .btn-info:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 233, 123, 0.3);
+        }
         .table {
             border-collapse: separate;
             border-spacing: 0;
@@ -106,16 +114,6 @@
         .table tbody tr:hover {
             background-color: #f8f9fa;
         }
-        .avatar-img {
-            border-radius: 50%;
-            border: 2px solid #667eea;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-        .avatar-img:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
         .admin-tabs {
             display: flex;
             flex-wrap: wrap;
@@ -134,11 +132,31 @@
             background: #f8f9fa;
             border-color: #667eea;
             color: #667eea;
+            transform: none;
+            box-shadow: none;
         }
         .admin-tabs .btn.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-color: transparent;
+        }
+        .comment-content {
+            max-width: 300px;
+            word-wrap: break-word;
+        }
+        .comment-meta {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .comment-count {
+            display: inline-block;
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
         }
         @media (max-width: 768px) {
             .table {
@@ -147,6 +165,13 @@
             .btn {
                 padding: 0.5rem 1rem;
                 font-size: 0.9rem;
+            }
+            .btn-sm {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            .comment-content {
+                max-width: 150px;
             }
         }
     </style>
@@ -177,8 +202,8 @@
                     </li>
                     <li><a href="/contact.html">联系我们</a>
                     </li>
-                    <li><a href="/article/list">管理页</a></li>
-                    <li><a href="/login.html">登录</a></li>
+                    <li th:if="${session.user != null}"><a href="/article/list">管理页</a></li>
+                    <li th:if="${session.user == null}"><a href="/login.html">登录</a></li>
                 </ul><!--  -->
             </nav><!-- End / overlay-menu -->
         </div><!-- End / fullscreenmenu__module -->
@@ -191,13 +216,14 @@
             <div class="container">
                 <!-- 页面标题 -->
                 <div class="page-title">
-                    <h2 class="page-title__title">用户管理</h2>
+                    <h2 class="page-title__title">评论管理</h2>
                     <div class="page-title__divider"></div>
                     <div class="admin-tabs">
-                        <a class="btn btn-sm" th:classappend="${page=='article'} ? ' active'" href="/article/list">文章管理</a>
-                        <a class="btn btn-sm active" href="/user/list">用户管理</a>
+                        <a class="btn btn-sm" href="/article/list">文章管理</a>
+                        <a class="btn btn-sm" th:classappend="${page=='user'} ? ' active'" href="/user/list">用户管理</a>
                         <a class="btn btn-sm" href="/article/like/list">点赞管理</a>
                         <a class="btn btn-sm" href="/article/favorite/list">收藏管理</a>
+                        <a class="btn btn-sm active" href="/comment/list">评论管理</a>
                     </div>
                 </div><!-- End / page-title -->
             </div>
@@ -209,45 +235,33 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="box">
-                            <form class="form-horizontal" id="user-form">
-                                <input type="hidden" id="id" name="id" />
-                                <div class="form-group">
-                                    <label for="name">用户名</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="请输入用户名">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">密码</label>
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
-                                </div>
-                                <div class="form-group">
-                                    <label for="avatar">头像</label>
-                                    <input type="url" class="form-control" id="avatar" name="avatar" placeholder="请输入头像地址">
-                                </div>
-                                <button type="button" class="btn btn-block btn-success add" id="save-btn">添加</button>
-                                <button type="button" class="btn btn-block btn-secondary reset" id="reset-btn" style="margin-top:10px;">重置</button>
-                            </form>
-                        </div>
-
-                        <div class="box" style="margin-top:20px;">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
-                                        <th>编号</th>
-                                        <th>用户名</th>
-                                        <th>头像</th>
+                                        <th>评论ID</th>
+                                        <th>文章ID</th>
+                                        <th>用户ID</th>
+                                        <th>评论内容</th>
+                                        <th>评论时间</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="item:${list}" th:attr="data-id=${item.id}, data-username=${item.name}, data-avatar=${item.avatar}">
+                                    <tr th:each="item:${list}" th:attr="data-id=${item.id}">
                                         <td th:text="${item.id}"></td>
-                                        <td th:text="${item.name}"></td>
+                                        <td th:text="${item.articleId}"></td>
+                                        <td th:text="${item.userId}"></td>
                                         <td>
-                                            <img th:src="${item.avatar}" width="60" height="60" alt="头像" class="avatar-img"/>
+                                            <div class="comment-content" th:text="${#strings.abbreviate(item.content, 50)}">评论内容</div>
                                         </td>
+                                        <td th:text="${#dates.format(item.createdAt, 'yyyy-MM-dd HH:mm')}">2024-01-01 12:00</td>
                                         <td>
-                                            <button type="button" class="btn btn-primary edit" th:attr="data-id=${item.id}">编辑</button>
-                                            <button type="button" class="btn btn-danger del" th:attr="data-id=${item.id}">删除</button>
+                                            <button type="button" class="btn btn-info btn-sm" th:onclick="'viewComment(' + ${item.id} + ')'">
+                                                <i class="fa fa-eye"></i> 查看
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-sm" th:onclick="'deleteComment(' + ${item.id} + ')'">
+                                                <i class="fa fa-trash"></i> 删除
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -275,7 +289,24 @@
     <script type="text/javascript" src="/assets/vendors/jquery-one-page/jquery.nav.min.js"></script>
     <script type="text/javascript" src="/assets/vendors/jquery.easing/jquery.easing.min.js"></script>
     <script type="text/javascript" src="/assets/js/main.js"></script>
-    <script type="text/javascript" src="/js/userList.js"></script>
+    <script>
+
+        // 删除评论
+        function deleteComment(commentId) {
+            if(confirm('确定要删除这条评论吗？')) {
+                $.post('/comment/delete/' + commentId, function(response) {
+                    if(response.success) {
+                        alert('删除成功');
+                        location.reload();
+                    } else {
+                        alert('删除失败: ' + response.message);
+                    }
+                }).fail(function() {
+                    alert('删除失败');
+                });
+            }
+        }
+    </script>
 </div><!-- End / page-wrap -->
 </body>
 </html>

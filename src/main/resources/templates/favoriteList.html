@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>用户管理</title>
+    <title>收藏管理</title>
     <!-- Fonts-->
     <link rel="stylesheet" type="text/css" href="/assets/fonts/fontawesome/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/fonts/pe-icon/pe-icon.css">
@@ -44,10 +44,6 @@
             border: none;
             cursor: pointer;
         }
-        .btn-sm {
-            padding: 0.5rem 1rem;
-            font-size: 0.875rem;
-        }
         .btn-success {
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
@@ -80,6 +76,26 @@
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(245, 87, 108, 0.3);
         }
+        .btn-info {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+        }
+        .btn-info:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 233, 123, 0.3);
+        }
+        .btn-warning {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+        }
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(250, 112, 154, 0.3);
+        }
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
         .table {
             border-collapse: separate;
             border-spacing: 0;
@@ -106,16 +122,6 @@
         .table tbody tr:hover {
             background-color: #f8f9fa;
         }
-        .avatar-img {
-            border-radius: 50%;
-            border: 2px solid #667eea;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-        .avatar-img:hover {
-            transform: scale(1.1);
-            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
-        }
         .admin-tabs {
             display: flex;
             flex-wrap: wrap;
@@ -134,11 +140,44 @@
             background: #f8f9fa;
             border-color: #667eea;
             color: #667eea;
+            transform: none;
+            box-shadow: none;
         }
         .admin-tabs .btn.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-color: transparent;
+        }
+        .favorite-count {
+            display: inline-block;
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        .article-title {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+        .article-meta {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .favorite-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #333;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
         }
         @media (max-width: 768px) {
             .table {
@@ -147,6 +186,10 @@
             .btn {
                 padding: 0.5rem 1rem;
                 font-size: 0.9rem;
+            }
+            .btn-sm {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
             }
         }
     </style>
@@ -177,8 +220,8 @@
                     </li>
                     <li><a href="/contact.html">联系我们</a>
                     </li>
-                    <li><a href="/article/list">管理页</a></li>
-                    <li><a href="/login.html">登录</a></li>
+                    <li th:if="${session.user != null}"><a href="/article/list">管理页</a></li>
+                    <li th:if="${session.user == null}"><a href="/login.html">登录</a></li>
                 </ul><!--  -->
             </nav><!-- End / overlay-menu -->
         </div><!-- End / fullscreenmenu__module -->
@@ -191,13 +234,13 @@
             <div class="container">
                 <!-- 页面标题 -->
                 <div class="page-title">
-                    <h2 class="page-title__title">用户管理</h2>
+                    <h2 class="page-title__title">收藏管理</h2>
                     <div class="page-title__divider"></div>
                     <div class="admin-tabs">
-                        <a class="btn btn-sm" th:classappend="${page=='article'} ? ' active'" href="/article/list">文章管理</a>
-                        <a class="btn btn-sm active" href="/user/list">用户管理</a>
+                        <a class="btn btn-sm" href="/article/list">文章管理</a>
+                        <a class="btn btn-sm" th:classappend="${page=='user'} ? ' active'" href="/user/list">用户管理</a>
                         <a class="btn btn-sm" href="/article/like/list">点赞管理</a>
-                        <a class="btn btn-sm" href="/article/favorite/list">收藏管理</a>
+                        <a class="btn btn-sm active" href="/article/favorite/list">收藏管理</a>
                     </div>
                 </div><!-- End / page-title -->
             </div>
@@ -209,45 +252,43 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="box">
-                            <form class="form-horizontal" id="user-form">
-                                <input type="hidden" id="id" name="id" />
-                                <div class="form-group">
-                                    <label for="name">用户名</label>
-                                    <input type="text" class="form-control" id="name" name="name" placeholder="请输入用户名">
-                                </div>
-                                <div class="form-group">
-                                    <label for="password">密码</label>
-                                    <input type="password" class="form-control" id="password" name="password" placeholder="请输入密码">
-                                </div>
-                                <div class="form-group">
-                                    <label for="avatar">头像</label>
-                                    <input type="url" class="form-control" id="avatar" name="avatar" placeholder="请输入头像地址">
-                                </div>
-                                <button type="button" class="btn btn-block btn-success add" id="save-btn">添加</button>
-                                <button type="button" class="btn btn-block btn-secondary reset" id="reset-btn" style="margin-top:10px;">重置</button>
-                            </form>
-                        </div>
-
-                        <div class="box" style="margin-top:20px;">
                             <table class="table table-bordered table-hover">
                                 <thead>
                                     <tr>
                                         <th>编号</th>
-                                        <th>用户名</th>
-                                        <th>头像</th>
+                                        <th>标题</th>
+                                        <th>摘要</th>
+                                        <th>收藏数</th>
                                         <th>操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr th:each="item:${list}" th:attr="data-id=${item.id}, data-username=${item.name}, data-avatar=${item.avatar}">
+                                    <tr th:each="item:${list}" th:attr="data-id=${item.id}, data-favorites=${item.favoriteCount}">
                                         <td th:text="${item.id}"></td>
-                                        <td th:text="${item.name}"></td>
                                         <td>
-                                            <img th:src="${item.avatar}" width="60" height="60" alt="头像" class="avatar-img"/>
+                                            <div class="article-title" th:text="${item.title}">文章标题</div>
+                                            <div class="article-meta">编号: <span th:text="${item.id}">1</span></div>
+                                        </td>
+                                        <td th:text="${item.summary != null ? #strings.abbreviate(item.summary, 50) : '无摘要'}"></td>
+                                        <td>
+                                            <span class="favorite-count">
+                                                <i class="fa fa-star"></i> 
+                                                <span th:text="${item.favoriteCount != null ? item.favoriteCount : 0}">0</span>
+                                            </span>
                                         </td>
                                         <td>
-                                            <button type="button" class="btn btn-primary edit" th:attr="data-id=${item.id}">编辑</button>
-                                            <button type="button" class="btn btn-danger del" th:attr="data-id=${item.id}">删除</button>
+                                            <button type="button" class="btn btn-success btn-sm" th:onclick="'increaseFavorites(' + ${item.id} + ')'">
+                                                <i class="fa fa-plus"></i> +1
+                                            </button>
+                                            <button type="button" class="btn btn-warning btn-sm" th:onclick="'decreaseFavorites(' + ${item.id} + ')'">
+                                                <i class="fa fa-minus"></i> -1
+                                            </button>
+                                            <button type="button" class="btn btn-info btn-sm" th:onclick="'resetFavorites(' + ${item.id} + ')'">
+                                                <i class="fa fa-refresh"></i> 重置
+                                            </button>
+                                            <button type="button" class="btn btn-primary btn-sm" th:onclick="'viewArticle(' + ${item.id} + ')'">
+                                                <i class="fa fa-eye"></i> 查看
+                                            </button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -275,7 +316,53 @@
     <script type="text/javascript" src="/assets/vendors/jquery-one-page/jquery.nav.min.js"></script>
     <script type="text/javascript" src="/assets/vendors/jquery.easing/jquery.easing.min.js"></script>
     <script type="text/javascript" src="/assets/js/main.js"></script>
-    <script type="text/javascript" src="/js/userList.js"></script>
+    <script>
+        // 增加收藏
+        function increaseFavorites(articleId) {
+            $.post('/article/increaseFavorites/' + articleId, function(response) {
+                if(response.success) {
+                    location.reload();
+                } else {
+                    alert('操作失败');
+                }
+            }).fail(function() {
+                alert('操作失败');
+            });
+        }
+
+        // 减少收藏
+        function decreaseFavorites(articleId) {
+            $.post('/article/decreaseFavorites/' + articleId, function(response) {
+                if(response.success) {
+                    location.reload();
+                } else {
+                    alert('操作失败');
+                }
+            }).fail(function() {
+                alert('操作失败');
+            });
+        }
+
+        // 重置收藏
+        function resetFavorites(articleId) {
+            if(confirm('确定要重置这篇文章的收藏数吗？')) {
+                $.post('/article/resetFavorites/' + articleId, function(response) {
+                    if(response.success) {
+                        location.reload();
+                    } else {
+                        alert('操作失败');
+                    }
+                }).fail(function() {
+                    alert('操作失败');
+                });
+            }
+        }
+
+        // 查看文章
+        function viewArticle(articleId) {
+            window.open('/article/detail/' + articleId, '_blank');
+        }
+    </script>
 </div><!-- End / page-wrap -->
 </body>
 </html>
