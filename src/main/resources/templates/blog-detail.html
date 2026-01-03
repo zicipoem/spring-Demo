@@ -211,11 +211,11 @@
 				margin-top: 30px;
 				padding-top: 20px;
 			}
-			
+
 			.comment-form {
 				padding: 15px;
 			}
-			
+
 			.comment-item {
 				padding: 12px;
 			}
@@ -254,17 +254,15 @@
 						</li>
 						<li><a href="/about.html">关于我们</a>
 						</li>
-						<li><a href="/work.html">栏目分类</a>
-						</li>
 						<li><a href="/blog.html">新闻列表</a>
 						</li>
-							<li><a href="/message.html">留言板</a></li>
+						<li><a href="/message.html">留言板</a></li>
 
-							<li th:if="${isAdmin}"><a href="/article/list">管理</a></li>
+						<li th:if="${isAdmin}"><a href="/article/list">管理</a></li>
 
 						<li><a href="/logout">登出</a></li>
-						</ul>
-					</nav>
+					</ul>
+				</nav>
 
 				</nav><!-- End / overlay-menu -->
 
@@ -360,8 +358,9 @@
 						</div>
 
 						<!-- 隐藏域 存储当前用户ID -->
-						<label style="display: none;" id="currentUserId" th:text="${currentUser != null ? currentUser.id : ''}"></label>
-						
+						<label style="display: none;" id="currentUserId"
+							th:text="${currentUser != null ? currentUser.id : ''}"></label>
+
 						<!-- 点赞收藏按钮 -->
 						<div class="like-favorite-section mt-30">
 							<div class="like-favorite-buttons">
@@ -383,7 +382,8 @@
 						<div class="comments-section">
 							<h3 class="comments-title">
 								<i class="fa fa-comments"></i>
-								评论 (<span id="comment-count" th:text="${comments != null ? comments.size() : 0}">0</span>)
+								评论 (<span id="comment-count"
+									th:text="${comments != null ? comments.size() : 0}">0</span>)
 							</h3>
 
 							<!-- 登录提示 -->
@@ -398,7 +398,7 @@
 									<label for="comment-content">
 										<i class="fa fa-edit"></i> 发表评论
 									</label>
-									<textarea id="comment-content" name="content" class="form-control" 
+									<textarea id="comment-content" name="content" class="form-control"
 										placeholder="请输入您的评论..." maxlength="1000" rows="4"></textarea>
 									<small class="form-text text-muted">
 										最多1000个字符
@@ -412,7 +412,8 @@
 							<!-- 评论列表 -->
 							<div id="comments-list">
 								<div th:if="${comments != null and not #lists.isEmpty(comments)}">
-									<div th:each="comment : ${comments}" class="comment-item" th:attr="data-comment-id=${comment.id}">
+									<div th:each="comment : ${comments}" class="comment-item"
+										th:attr="data-comment-id=${comment.id}">
 										<div class="comment-header">
 											<div class="comment-author">
 												<i class="fa fa-user"></i>
@@ -424,8 +425,9 @@
 											</div>
 										</div>
 										<div class="comment-content" th:text="${comment.content}">评论内容</div>
-										<div class="comment-actions" th:if="${currentUser != null and (isAdmin or currentUser.id == comment.userId)}">
-											<button type="button" class="comment-delete-btn" 
+										<div class="comment-actions"
+											th:if="${currentUser != null and (isAdmin or currentUser.id == comment.userId)}">
+											<button type="button" class="comment-delete-btn"
 												th:onclick="'deleteComment(' + ${comment.id} + ')'">
 												<i class="fa fa-trash"></i> 删除
 											</button>
@@ -634,7 +636,7 @@
 			// 发表评论
 			$('#submit-comment').on('click', function () {
 				var content = $('#comment-content').val().trim();
-				
+
 				if (!content) {
 					alert('请输入评论内容');
 					return;
@@ -681,7 +683,7 @@
 							// 更新评论数量
 							var currentCount = parseInt($('#comment-count').text());
 							$('#comment-count').text(currentCount - 1);
-							
+
 							// 如果没有评论了，显示"暂无评论"
 							if (currentCount - 1 === 0) {
 								$('#comments-list').html(`
