@@ -4,53 +4,239 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>留言管理</title>
+    <!-- Fonts-->
     <link rel="stylesheet" type="text/css" href="/assets/fonts/fontawesome/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/fonts/pe-icon/pe-icon.css">
+    <!-- Vendors-->
     <link rel="stylesheet" type="text/css" href="/assets/vendors/bootstrap/grid.css">
-    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/assets/vendors/magnific-popup/magnific-popup.min.css">
+    <link rel="stylesheet" type="text/css" href="/assets/vendors/swiper/swiper.css">
+    <!-- App & fonts-->
+    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Open+Sans:400,700">
+    <link rel="stylesheet" type="text/css" id="app-stylesheet" href="/assets/css/main.css">
     <style>
-        /* 复用评论管理的样式 */
-        .comment-content { max-width: 300px; word-wrap: break-word; }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        .form-control {
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        .form-control:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            outline: none;
+        }
+        .btn {
+            border-radius: 8px;
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        .btn-sm {
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+        }
+        .btn-secondary {
+            background: linear-gradient(135deg, #a8a8a8 0%, #7f7f7f 100%);
+            color: white;
+        }
+        .btn-secondary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(127, 127, 127, 0.3);
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+        }
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.3);
+        }
+        .btn-info {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+        }
+        .btn-info:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 233, 123, 0.3);
+        }
+        .table {
+            border-collapse: separate;
+            border-spacing: 0;
+            width: 100%;
+        }
+        .table thead th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            padding: 1rem;
+            border: none;
+        }
+        .table thead th:first-child {
+            border-radius: 8px 0 0 0;
+        }
+        .table thead th:last-child {
+            border-radius: 0 8px 0 0;
+        }
+        .table tbody td {
+            padding: 1rem;
+            border-bottom: 1px solid #f0f0f0;
+            vertical-align: middle;
+        }
+        .table tbody tr:hover {
+            background-color: #f8f9fa;
+        }
+        .admin-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem !important;
+        }
+        .admin-tabs .btn {
+            background: white;
+            color: #333;
+            border: 2px solid #e0e0e0;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .admin-tabs .btn:hover {
+            background: #f8f9fa;
+            border-color: #667eea;
+            color: #667eea;
+            transform: none;
+            box-shadow: none;
+        }
+        .admin-tabs .btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-color: transparent;
+        }
+        .comment-content {
+            max-width: 300px;
+            word-wrap: break-word;
+        }
+        .comment-meta {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        .message-info {
+            display: inline-block;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            color: #333;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        @media (max-width: 768px) {
+            .table {
+                font-size: 0.9rem;
+            }
+            .btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.9rem;
+            }
+            .btn-sm {
+                padding: 0.4rem 0.8rem;
+                font-size: 0.8rem;
+            }
+            .comment-content {
+                max-width: 150px;
+            }
+        }
     </style>
 </head>
+
+<script>
+function testMenu() {
+    $('.fullscreenmenu__module').addClass('active');
+    $('body').css('overflow', 'hidden');
+}
+</script>
+
 <body>
 <div class="page-wrap" id="root">
+    <!-- header -->
     <header class="header header--fixed">
         <div class="header__inner">
             <div class="header__logo"><a href="/index.html"><img src="/assets/img/logo.png" alt="" style="width: 122px;"/></a></div>
-            <div class="navbar-toggle" id="fs-button"><div class="navbar-icon"><span></span></div></div>
+            <div class="navbar-toggle" id="fs-button">
+                <div class="navbar-icon"><span></span></div>
+            </div>
         </div>
+        <!-- fullscreenmenu__module -->
         <div class="fullscreenmenu__module" trigger="#fs-button">
+            <!-- overlay-menu -->
             <nav class="overlay-menu">
+                <!--  -->
                 <ul class="wil-menu-list">
-                    <li><a href="/index.html">首页</a></li>
-                    <li><a href="/about.html">关于我们</a></li>
-                    <li><a href="/work.html">栏目分类</a></li>
-                    <li><a href="/blog.html">新闻列表</a></li>
+                    <li class="current-menu-item"><a href="/index.html">首页</a>
+                    </li>
+                    <li><a href="/about.html">关于我们</a>
+                    </li>
+                    <li><a href="/blog.html">新闻列表</a>
+                    </li>
                     <li><a href="/message.html">留言板</a></li>
-                    <li th:if="${session.user != null}"><a href="/article/list">管理页</a></li>
-                    <li th:if="${session.user == null}"><a href="/login.html">登录</a></li>
+                
+                    <li th:if="${isAdmin}"><a href="/article/list">管理</a></li>
+                
+                    <li><a href="/logout">登出</a></li>
                 </ul>
-            </nav>
-        </div>
-    </header>
+            </nav><!-- End / overlay-menu -->
+        </div><!-- End / fullscreenmenu__module -->
+    </header><!-- End / header -->
 
+    <!-- Content-->
     <div class="wil-content">
+        <!-- Section -->
         <section class="awe-section">
             <div class="container">
+                <!-- 页面标题 -->
                 <div class="page-title">
                     <h2 class="page-title__title">留言管理</h2>
                     <div class="page-title__divider"></div>
                     <div class="admin-tabs">
                         <a class="btn btn-sm" href="/article/list">文章管理</a>
-                        <a class="btn btn-sm" href="/user/list">用户管理</a>
+                        <a class="btn btn-sm" th:classappend="${page=='user'} ? ' active'" href="/user/list">用户管理</a>
                         <a class="btn btn-sm" href="/article/like/list">点赞管理</a>
                         <a class="btn btn-sm" href="/article/favorite/list">收藏管理</a>
+                        <a class="btn btn-sm" th:classappend="${page=='comment'} ? ' active'" href="/comment/list">评论管理</a>
                         <a class="btn btn-sm active" href="/message/list">留言管理</a>
                     </div>
-                </div>
+                </div><!-- End / page-title -->
             </div>
         </section>
+        <!-- End / Section -->
 
         <section class="awe-section">
             <div class="container">
@@ -59,31 +245,33 @@
                         <div class="box">
                             <table class="table table-bordered table-hover">
                                 <thead>
-                                <tr>
-                                    <th>留言ID</th>
-                                    <th>姓名</th>
-                                    <th>邮箱</th>
-                                    <th>内容</th>
-                                    <th>时间</th>
-                                    <th>操作</th>
-                                </tr>
+                                    <tr>
+                                        <th>留言ID</th>
+                                        <th>姓名</th>
+                                        <th>邮箱</th>
+                                        <th>内容</th>
+                                        <th>时间</th>
+                                        <th>操作</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                <tr th:each="item : ${list}" th:attr="data-id=${item.id}">
-                                    <td th:text="${item.id}"></td>
-                                    <td th:text="${item.name}">姓名</td>
-                                    <td th:text="${item.email}">邮箱</td>
-                                    <td><div class="comment-content" th:text="${#strings.abbreviate(item.content,50)}">内容</div></td>
-                                    <td th:text="${item.createdAt}">时间</td>
-                                    <td>
-                                        <button type="button" class="btn btn-info btn-sm" th:onclick="'viewMessage(' + ${item.id} + ')'">
-                                            <i class="fa fa-eye"></i> 查看
-                                        </button>
-                                        <button type="button" class="btn btn-danger btn-sm" th:onclick="'deleteMessage(' + ${item.id} + ')'">
-                                            <i class="fa fa-trash"></i> 删除
-                                        </button>
-                                    </td>
-                                </tr>
+                                    <tr th:each="item : ${list}" th:attr="data-id=${item.id}">
+                                        <td th:text="${item.id}"></td>
+                                        <td th:text="${item.name}">姓名</td>
+                                        <td th:text="${item.email}">邮箱</td>
+                                        <td>
+                                            <div class="comment-content" th:text="${#strings.abbreviate(item.content,50)}">内容</div>
+                                        </td>
+                                        <td th:text="${item.createdAt != null ? item.createdAt.format(T(java.time.format.DateTimeFormatter).ofPattern('yyyy-MM-dd HH:mm')) : ''}">时间</td>
+                                        <td>
+                                            <button type="button" class="btn btn-info btn-sm" th:onclick="'viewMessage(' + ${item.id} + ')'">
+                                                <i class="fa fa-eye"></i> 查看
+                                            </button>
+                                            <button type="button" class="btn btn-danger btn-sm" th:onclick="'deleteMessage(' + ${item.id} + ')'">
+                                                <i class="fa fa-trash"></i> 删除
+                                            </button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -92,7 +280,7 @@
             </div>
         </section>
 
-    </div>
+    </div><!-- End / Content-->
 
     <script type="text/javascript" src="/assets/vendors/jquery/jquery.min.js"></script>
     <script type="text/javascript" src="/assets/js/main.js"></script>

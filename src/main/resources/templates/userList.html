@@ -167,20 +167,18 @@
             <nav class="overlay-menu">
                 <!--  -->
                 <ul class="wil-menu-list">
-                    <li><a href="/index.html">首页</a>
-                    </li>
-                    <li><a href="/about.html">关于我们</a>
-                    </li>
-                    <li><a href="/work.html">栏目分类</a>
-                    </li>
-                    <li><a href="/blog.html">新闻列表</a>
-                    </li>
-                    <li><a href="/message.html">留言板</a>
-                    </li>
-                    <li><a href="/article/list">管理页</a></li>
+						<li class="current-menu-item"><a href="/index.html">首页</a>
+						</li>
+						<li><a href="/about.html">关于我们</a>
+						</li>
+						<li><a href="/blog.html">新闻列表</a>
+						</li>
+						<li><a href="/message.html">留言板</a></li>
 
-                    <li><a href="/login.html">登录</a></li>
-                </ul><!--  -->
+						<li th:if="${isAdmin}"><a href="/article/list">管理</a></li>
+
+						<li><a href="/logout">登出</a></li>
+						</ul>
             </nav><!-- End / overlay-menu -->
         </div><!-- End / fullscreenmenu__module -->
     </header><!-- End / header -->

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -12,18 +13,21 @@
     <link rel="stylesheet" type="text/css" href="/assets/vendors/magnific-popup/magnific-popup.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/vendors/swiper/swiper.css">
     <!-- App & fonts-->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Open+Sans:400,700">
+    <link rel="stylesheet" type="text/css"
+        href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Open+Sans:400,700">
     <link rel="stylesheet" type="text/css" id="app-stylesheet" href="/assets/css/main.css">
     <style>
         .form-group {
             margin-bottom: 1.5rem;
         }
+
         .form-group label {
             font-weight: 600;
             color: #333;
             margin-bottom: 0.5rem;
             display: block;
         }
+
         .form-control {
             border: 2px solid #e0e0e0;
             border-radius: 8px;
@@ -31,11 +35,13 @@
             font-size: 1rem;
             transition: all 0.3s ease;
         }
+
         .form-control:focus {
             border-color: #667eea;
             box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
             outline: none;
         }
+
         .btn {
             border-radius: 8px;
             padding: 0.75rem 1.5rem;
@@ -44,63 +50,78 @@
             border: none;
             cursor: pointer;
         }
+
         .btn-success {
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
         }
+
         .btn-success:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
         }
+
         .btn-secondary {
             background: linear-gradient(135deg, #a8a8a8 0%, #7f7f7f 100%);
             color: white;
         }
+
         .btn-secondary:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(127, 127, 127, 0.3);
         }
+
         .btn-primary {
             background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
             color: white;
         }
+
         .btn-primary:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(79, 172, 254, 0.3);
         }
+
         .btn-danger {
             background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
             color: white;
         }
+
         .btn-danger:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(245, 87, 108, 0.3);
         }
+
         .btn-info {
             background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
             color: white;
         }
+
         .btn-info:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(67, 233, 123, 0.3);
         }
+
         .btn-warning {
             background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
             color: white;
         }
+
         .btn-warning:hover {
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(250, 112, 154, 0.3);
         }
+
         .btn-sm {
             padding: 0.5rem 1rem;
             font-size: 0.875rem;
         }
+
         .table {
             border-collapse: separate;
             border-spacing: 0;
             width: 100%;
         }
+
         .table thead th {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
@@ -108,26 +129,32 @@
             padding: 1rem;
             border: none;
         }
+
         .table thead th:first-child {
             border-radius: 8px 0 0 0;
         }
+
         .table thead th:last-child {
             border-radius: 0 8px 0 0;
         }
+
         .table tbody td {
             padding: 1rem;
             border-bottom: 1px solid #f0f0f0;
             vertical-align: middle;
         }
+
         .table tbody tr:hover {
             background-color: #f8f9fa;
         }
+
         .admin-tabs {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-top: 1rem !important;
         }
+
         .admin-tabs .btn {
             background: white;
             color: #333;
@@ -136,6 +163,7 @@
             text-decoration: none;
             display: inline-block;
         }
+
         .admin-tabs .btn:hover {
             background: #f8f9fa;
             border-color: #667eea;
@@ -143,11 +171,13 @@
             transform: none;
             box-shadow: none;
         }
+
         .admin-tabs .btn.active {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border-color: transparent;
         }
+
         .favorite-count {
             display: inline-block;
             background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
@@ -158,15 +188,18 @@
             font-weight: 600;
             margin-right: 0.5rem;
         }
+
         .article-title {
             color: #333;
             font-weight: 600;
             margin-bottom: 0.25rem;
         }
+
         .article-meta {
             color: #666;
             font-size: 0.9rem;
         }
+
         .favorite-badge {
             position: absolute;
             top: 15px;
@@ -179,14 +212,17 @@
             font-weight: bold;
             box-shadow: 0 2px 8px rgba(255, 215, 0, 0.4);
         }
+
         @media (max-width: 768px) {
             .table {
                 font-size: 0.9rem;
             }
+
             .btn {
                 padding: 0.5rem 1rem;
                 font-size: 0.9rem;
             }
+
             .btn-sm {
                 padding: 0.4rem 0.8rem;
                 font-size: 0.8rem;
@@ -194,177 +230,190 @@
         }
     </style>
 </head>
+
 <body>
-<div class="page-wrap" id="root">
-    <!-- header -->
-    <header class="header header--fixed">
-        <div class="header__inner">
-            <div class="header__logo"><a href="/index.html"><img src="/assets/img/logo.png" alt="" style="width: 122px;"/></a></div>
-            <div class="navbar-toggle" id="fs-button">
-                <div class="navbar-icon"><span></span></div>
+    <div class="page-wrap" id="root">
+        <!-- header -->
+        <header class="header header--fixed">
+            <div class="header__inner">
+                <div class="header__logo"><a href="/index.html"><img src="/assets/img/logo.png" alt=""
+                            style="width: 122px;" /></a></div>
+                <div class="navbar-toggle" id="fs-button">
+                    <div class="navbar-icon"><span></span></div>
+                </div>
             </div>
-        </div>
-        <!-- fullscreenmenu__module -->
-        <div class="fullscreenmenu__module" trigger="#fs-button">
-            <!-- overlay-menu -->
-            <nav class="overlay-menu">
-                <!--  -->
-                <ul class="wil-menu-list">
-                    <li><a href="/index.html">首页</a>
-                    </li>
-                    <li><a href="/about.html">关于我们</a>
-                    </li>
-                    <li><a href="/work.html">栏目分类</a>
-                    </li>
-                    <li><a href="/blog.html">新闻列表</a>
-                    </li>
-                    <li><a href="/message.html">留言板</a>
-                    </li>
-                    <li th:if="${session.user != null}"><a href="/article/list">管理页</a></li>
-                    <li th:if="${session.user == null}"><a href="/login.html">登录</a></li>
-                </ul><!--  -->
-            </nav><!-- End / overlay-menu -->
-        </div><!-- End / fullscreenmenu__module -->
-    </header><!-- End / header -->
+            <!-- fullscreenmenu__module -->
+            <div class="fullscreenmenu__module" trigger="#fs-button">
+                <!-- overlay-menu -->
+                <nav class="overlay-menu">
+                    <!--  -->
+                    <ul class="wil-menu-list">
+                        <li class="current-menu-item"><a href="/index.html">首页</a>
+                        </li>
+                        <li><a href="/about.html">关于我们</a>
+                        </li>
+                        <li><a href="/blog.html">新闻列表</a>
+                        </li>
+                        <li><a href="/message.html">留言板</a></li>
 
-    <!-- Content-->
-    <div class="wil-content">
-        <!-- Section -->
-        <section class="awe-section">
-            <div class="container">
-                <!-- 页面标题 -->
-                <div class="page-title">
-                    <h2 class="page-title__title">收藏管理</h2>
-                    <div class="page-title__divider"></div>
-                    <div class="admin-tabs">
-                        <a class="btn btn-sm" href="/article/list">文章管理</a>
-                        <a class="btn btn-sm" th:classappend="${page=='user'} ? ' active'" href="/user/list">用户管理</a>
-                        <a class="btn btn-sm" href="/article/like/list">点赞管理</a>
-                        <a class="btn btn-sm active" href="/article/favorite/list">收藏管理</a>
-                        <a class="btn btn-sm" th:classappend="${page=='comment'} ? ' active'" href="/comment/list">评论管理</a>
-                        <a class="btn btn-sm" th:classappend="${page=='message'} ? ' active'" href="/message/list">留言管理</a>
-                    </div>
-                </div><!-- End / page-title -->
-            </div>
-        </section>
-        <!-- End / Section -->
+                        <li th:if="${isAdmin}"><a href="/article/list">管理</a></li>
 
-        <section class="awe-section">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="box">
-                            <table class="table table-bordered table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>编号</th>
-                                        <th>标题</th>
-                                        <th>摘要</th>
-                                        <th>收藏数</th>
-                                        <th>操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr th:each="item : ${list}" th:attr="data-id=${item.id}, data-favorites=${item.favoriteCount}">
-                                        <td th:text="${item.id}"></td>
-                                        <td>
-                                            <div class="article-title" th:text="${item.title}">文章标题</div>
-                                            <div class="article-meta">编号: <span th:text="${item.id}">1</span></div>
-                                        </td>
-                                        <td th:text="${item.summary != null ? #strings.abbreviate(item.summary, 50) : '无摘要'}"></td>
-                                        <td>
-                                            <span class="favorite-count">
-                                                <i class="fa fa-star"></i> 
-                                                <span th:text="${item.favoriteCount != null ? item.favoriteCount : 0}">0</span>
-                                            </span>
-                                        </td>
-                                        <td>
-                                            <button type="button" class="btn btn-success btn-sm" th:onclick="'increaseFavorites(' + ${item.id} + ')'">
-                                                <i class="fa fa-plus"></i> +1
-                                            </button>
-                                            <button type="button" class="btn btn-warning btn-sm" th:onclick="'decreaseFavorites(' + ${item.id} + ')'">
-                                                <i class="fa fa-minus"></i> -1
-                                            </button>
-                                            <button type="button" class="btn btn-info btn-sm" th:onclick="'resetFavorites(' + ${item.id} + ')'">
-                                                <i class="fa fa-refresh"></i> 重置
-                                            </button>
-                                            <button type="button" class="btn btn-primary btn-sm" th:onclick="'viewArticle(' + ${item.id} + ')'">
-                                                <i class="fa fa-eye"></i> 查看
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <li><a href="/logout">登出</a></li>
+                    </ul>
+                </nav><!-- End / overlay-menu -->
+            </div><!-- End / fullscreenmenu__module -->
+        </header><!-- End / header -->
+
+        <!-- Content-->
+        <div class="wil-content">
+            <!-- Section -->
+            <section class="awe-section">
+                <div class="container">
+                    <!-- 页面标题 -->
+                    <div class="page-title">
+                        <h2 class="page-title__title">收藏管理</h2>
+                        <div class="page-title__divider"></div>
+                        <div class="admin-tabs">
+                            <a class="btn btn-sm" href="/article/list">文章管理</a>
+                            <a class="btn btn-sm" th:classappend="${page=='user'} ? ' active'"
+                                href="/user/list">用户管理</a>
+                            <a class="btn btn-sm" href="/article/like/list">点赞管理</a>
+                            <a class="btn btn-sm active" href="/article/favorite/list">收藏管理</a>
+                            <a class="btn btn-sm" th:classappend="${page=='comment'} ? ' active'"
+                                href="/comment/list">评论管理</a>
+                            <a class="btn btn-sm" th:classappend="${page=='message'} ? ' active'"
+                                href="/message/list">留言管理</a>
+                        </div>
+                    </div><!-- End / page-title -->
+                </div>
+            </section>
+            <!-- End / Section -->
+
+            <section class="awe-section">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="box">
+                                <table class="table table-bordered table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th>编号</th>
+                                            <th>标题</th>
+                                            <th>摘要</th>
+                                            <th>收藏数</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:each="item : ${list}"
+                                            th:attr="data-id=${item.id}, data-favorites=${item.favoriteCount}">
+                                            <td th:text="${item.id}"></td>
+                                            <td>
+                                                <div class="article-title" th:text="${item.title}">文章标题</div>
+                                                <div class="article-meta">编号: <span th:text="${item.id}">1</span></div>
+                                            </td>
+                                            <td
+                                                th:text="${item.summary != null ? #strings.abbreviate(item.summary, 50) : '无摘要'}">
+                                            </td>
+                                            <td>
+                                                <span class="favorite-count">
+                                                    <i class="fa fa-star"></i>
+                                                    <span
+                                                        th:text="${item.favoriteCount != null ? item.favoriteCount : 0}">0</span>
+                                                </span>
+                                            </td>
+                                            <td>
+                                                <button type="button" class="btn btn-success btn-sm"
+                                                    th:onclick="'increaseFavorites(' + ${item.id} + ')'">
+                                                    <i class="fa fa-plus"></i> +1
+                                                </button>
+                                                <button type="button" class="btn btn-warning btn-sm"
+                                                    th:onclick="'decreaseFavorites(' + ${item.id} + ')'">
+                                                    <i class="fa fa-minus"></i> -1
+                                                </button>
+                                                <button type="button" class="btn btn-info btn-sm"
+                                                    th:onclick="'resetFavorites(' + ${item.id} + ')'">
+                                                    <i class="fa fa-refresh"></i> 重置
+                                                </button>
+                                                <button type="button" class="btn btn-primary btn-sm"
+                                                    th:onclick="'viewArticle(' + ${item.id} + ')'">
+                                                    <i class="fa fa-eye"></i> 查看
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
 
-    </div><!-- End / Content-->
+        </div><!-- End / Content-->
 
-    <!-- Footer scripts -->
-    <script type="text/javascript" src="/assets/vendors/jquery/jquery.min.js"></script>
-    <script type="text/javascript" src="/assets/vendors/jquery.matchHeight/jquery.matchHeight.min.js"></script>
-    <script type="text/javascript" src="/assets/vendors/jquery.waypoints/jquery.waypoints.min.js"></script>
-    <script type="text/javascript" src="/assets/vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
-    <script type="text/javascript" src="/assets/vendors/isotope-layout/isotope.pkgd.js"></script>
-    <script type="text/javascript" src="/assets/vendors/imagesloaded/imagesloaded.pkgd.js"></script>
-    <script type="text/javascript" src="/assets/vendors/masonry-layout/masonry.pkgd.js"></script>
-    <script type="text/javascript" src="/assets/vendors/slider/slider.js"></script>
-    <script type="text/javascript" src="/assets/vendors/menu/menu.js"></script>
-    <script type="text/javascript" src="/assets/vendors/typed/typed.min.js"></script>
-    <script type="text/javascript" src="/assets/vendors/swiper/swiper.jquery.js"></script>
-    <script type="text/javascript" src="/assets/vendors/jquery-one-page/jquery.nav.min.js"></script>
-    <script type="text/javascript" src="/assets/vendors/jquery.easing/jquery.easing.min.js"></script>
-    <script type="text/javascript" src="/assets/js/main.js"></script>
-    <script>
-        // 增加收藏
-        function increaseFavorites(articleId) {
-            $.post('/article/increaseFavorites/' + articleId, function(response) {
-                if(response.success) {
-                    location.reload();
-                } else {
-                    alert('操作失败');
-                }
-            }).fail(function() {
-                alert('操作失败');
-            });
-        }
-
-        // 减少收藏
-        function decreaseFavorites(articleId) {
-            $.post('/article/decreaseFavorites/' + articleId, function(response) {
-                if(response.success) {
-                    location.reload();
-                } else {
-                    alert('操作失败');
-                }
-            }).fail(function() {
-                alert('操作失败');
-            });
-        }
-
-        // 重置收藏
-        function resetFavorites(articleId) {
-            if(confirm('确定要重置这篇文章的收藏数吗？')) {
-                $.post('/article/resetFavorites/' + articleId, function(response) {
-                    if(response.success) {
+        <!-- Footer scripts -->
+        <script type="text/javascript" src="/assets/vendors/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="/assets/vendors/jquery.matchHeight/jquery.matchHeight.min.js"></script>
+        <script type="text/javascript" src="/assets/vendors/jquery.waypoints/jquery.waypoints.min.js"></script>
+        <script type="text/javascript" src="/assets/vendors/magnific-popup/jquery.magnific-popup.min.js"></script>
+        <script type="text/javascript" src="/assets/vendors/isotope-layout/isotope.pkgd.js"></script>
+        <script type="text/javascript" src="/assets/vendors/imagesloaded/imagesloaded.pkgd.js"></script>
+        <script type="text/javascript" src="/assets/vendors/masonry-layout/masonry.pkgd.js"></script>
+        <script type="text/javascript" src="/assets/vendors/slider/slider.js"></script>
+        <script type="text/javascript" src="/assets/vendors/menu/menu.js"></script>
+        <script type="text/javascript" src="/assets/vendors/typed/typed.min.js"></script>
+        <script type="text/javascript" src="/assets/vendors/swiper/swiper.jquery.js"></script>
+        <script type="text/javascript" src="/assets/vendors/jquery-one-page/jquery.nav.min.js"></script>
+        <script type="text/javascript" src="/assets/vendors/jquery.easing/jquery.easing.min.js"></script>
+        <script type="text/javascript" src="/assets/js/main.js"></script>
+        <script>
+            // 增加收藏
+            function increaseFavorites(articleId) {
+                $.post('/article/increaseFavorites/' + articleId, function (response) {
+                    if (response.success) {
                         location.reload();
                     } else {
                         alert('操作失败');
                     }
-                }).fail(function() {
+                }).fail(function () {
                     alert('操作失败');
                 });
             }
-        }
 
-        // 查看文章
-        function viewArticle(articleId) {
-            window.open('/article/detail/' + articleId, '_blank');
-        }
-    </script>
-</div><!-- End / page-wrap -->
+            // 减少收藏
+            function decreaseFavorites(articleId) {
+                $.post('/article/decreaseFavorites/' + articleId, function (response) {
+                    if (response.success) {
+                        location.reload();
+                    } else {
+                        alert('操作失败');
+                    }
+                }).fail(function () {
+                    alert('操作失败');
+                });
+            }
+
+            // 重置收藏
+            function resetFavorites(articleId) {
+                if (confirm('确定要重置这篇文章的收藏数吗？')) {
+                    $.post('/article/resetFavorites/' + articleId, function (response) {
+                        if (response.success) {
+                            location.reload();
+                        } else {
+                            alert('操作失败');
+                        }
+                    }).fail(function () {
+                        alert('操作失败');
+                    });
+                }
+            }
+
+            // 查看文章
+            function viewArticle(articleId) {
+                window.open('/article/detail/' + articleId, '_blank');
+            }
+        </script>
+    </div><!-- End / page-wrap -->
 </body>
+
 </html>
