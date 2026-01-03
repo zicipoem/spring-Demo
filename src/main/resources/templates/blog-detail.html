@@ -360,7 +360,7 @@
 						</div>
 
 						<!-- 隐藏域 存储当前用户ID -->
-						<label type="hidden" id="currentUserId" th:text="${currentUser != null ? currentUser.id : ''}"></label>
+						<label style="display: none;" id="currentUserId" th:text="${currentUser != null ? currentUser.id : ''}"></label>
 						
 						<!-- 点赞收藏按钮 -->
 						<div class="like-favorite-section mt-30">

@@ -23,6 +23,7 @@ public class MessageAdminController {
     @RequestMapping("/list")
     public ModelAndView list() {
         ModelAndView mv = new ModelAndView("messageList");
+        
         mv.addObject("list", messageService.listMessages());
         mv.addObject("navs", Nav.all("message"));
         mv.addObject("page", "message");
