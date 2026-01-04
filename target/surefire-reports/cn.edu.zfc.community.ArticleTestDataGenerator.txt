@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: cn.edu.zfc.community.ArticleTestDataGenerator
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 10.569 s - in cn.edu.zfc.community.ArticleTestDataGenerator

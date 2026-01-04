@@ -106,6 +106,93 @@
             box-shadow: 0 5px 15px rgba(67, 233, 123, 0.3);
         }
 
+        .crawler-control-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e8f4f8;
+        }
+
+        .crawler-form-container {
+            margin-top: 1rem;
+        }
+
+        .form-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .crawl-result {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border-left: 4px solid #667eea;
+            margin-top: 1rem;
+        }
+
+        .result-content h4 {
+            color: #495057;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .result-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .result-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .result-label {
+            font-weight: 600;
+            color: #495057;
+            min-width: 80px;
+        }
+
+        .result-value {
+            color: #667eea;
+            font-weight: 500;
+        }
+
+        .result-value.success {
+            color: #28a745;
+            font-weight: 600;
+        }
+
+        .result-value.error {
+            color: #dc3545;
+            font-weight: 600;
+        }
+
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .loading .btn {
+            background: #6c757d !important;
+            cursor: not-allowed;
+        }
+
         .table {
             border-collapse: separate;
             border-spacing: 0;
@@ -311,6 +398,70 @@
                                     </div>
                                 </form>
                             </div>
+                            
+                            <!-- 爬虫控制区域 -->
+                            <div class="crawler-control-container" style="margin-top:30px;">
+                                <div class="form-title">
+                                    <i class="fa fa-spider"></i> 爬虫控制
+                                </div>
+                                <div class="crawler-form-container">
+                                    <form class="form-horizontal" id="crawler-form">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="startPage">
+                                                        <i class="fa fa-play"></i> 开始页数
+                                                    </label>
+                                                    <input type="number" class="form-control" id="startPage" name="startPage" 
+                                                        value="1" min="1" max="50" placeholder="请输入开始页数">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label for="endPage">
+                                                        <i class="fa fa-stop"></i> 结束页数
+                                                    </label>
+                                                    <input type="number" class="form-control" id="endPage" name="endPage" 
+                                                        value="5" min="1" max="50" placeholder="请输入结束页数">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <button type="button" class="btn btn-block btn-info" id="crawl-btn">
+                                                    <i class="fa fa-download"></i> <span id="crawl-text">开始爬取新闻</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                
+                                <!-- 爬虫结果展示区域 -->
+                                <div id="crawl-result" class="crawl-result" style="display:none; margin-top:20px;">
+                                    <div class="result-content">
+                                        <h4><i class="fa fa-info-circle"></i> 爬取结果</h4>
+                                        <div class="result-details">
+                                            <div class="result-item">
+                                                <span class="result-label">状态：</span>
+                                                <span id="result-status" class="result-value"></span>
+                                            </div>
+                                            <div class="result-item">
+                                                <span class="result-label">新新闻：</span>
+                                                <span id="result-new-news" class="result-value"></span>
+                                            </div>
+                                            <div class="result-item">
+                                                <span class="result-label">已存在：</span>
+                                                <span id="result-existing-news" class="result-value"></span>
+                                            </div>
+                                            <div class="result-item">
+                                                <span class="result-label">消息：</span>
+                                                <span id="result-message" class="result-value"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
                             <div class="box" style="margin-top:20px;">
                                 <table class="table table-bordered table-hover">
                                     <thead>

@@ -6,13 +6,11 @@ import cn.edu.zfc.community.dao.LikeDao;
 import cn.edu.zfc.community.dao.FavoriteDao;
 import cn.edu.zfc.community.pojo.Article;
 import cn.edu.zfc.community.pojo.Nav;
+import cn.edu.zfc.community.service.CrawlerService;
 
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.*;
@@ -36,6 +34,9 @@ public class ArticleController {
     
     @Autowired
     private FavoriteDao favoriteDao;
+    
+    @Autowired
+    private CrawlerService crawlerService;
 
     @RequestMapping("/add/model")
     public Article addByModel(@ModelAttribute Article article) {
@@ -218,6 +219,30 @@ public class ArticleController {
         } catch (Exception e) {
             result.put("success", false);
             result.put("message", "操作失败：" + e.getMessage());
+        }
+        return result;
+    }
+    
+    /**
+     * 爬虫接口，用于爬取新闻
+     * @param startPage 开始页数
+     * @param endPage 结束页数
+     * @return 爬取结果
+     */
+    @RequestMapping("/crawl")
+    public Map<String, Object> crawlNews(@RequestParam(defaultValue = "1") int startPage, @RequestParam(defaultValue = "5") int endPage) {
+        Map<String, Object> result = new HashMap<>();
+        try {
+            System.out.println("开始爬取新闻，页数范围：" + startPage + " - " + endPage);
+            int[] crawlResult = crawlerService.crawlNews(startPage, endPage);
+            result.put("success", true);
+            result.put("message", "爬取完成");
+            result.put("newNews", crawlResult[0]);
+            result.put("existingNews", crawlResult[1]);
+        } catch (Exception e) {
+            result.put("success", false);
+            result.put("message", "爬取失败：" + e.getMessage());
+            e.printStackTrace();
         }
         return result;
     }

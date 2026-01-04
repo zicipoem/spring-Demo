@@ -101,222 +101,37 @@
 						<div class="grid-css grid-css--masonry" data-col-lg="3" data-col-md="2" data-col-sm="2" data-col-xs="1" data-gap="30">
 							<div class="grid__inner">
 								<div class="grid-sizer"></div>
+								<th:block th:each="article : ${list}">
 								<div class="grid-item">
 									<div class="grid-item__inner">
 										<div class="grid-item__content-wrapper">
-											
+
 											<!-- news -->
-											<div class="work"><a href="blog-detail.html">
-													
-													<!-- hoverbox ef-slide-bottom -->
-													<div class="hoverbox ef-slide-bottom light">
-														
-														<!-- hb_front -->
-														<div class="hb_front"><img src="/assets/img/pexels-photo-807034.jpeg" alt=""/>
-														</div><!-- End / hb_front -->
-														
-														
-														<!-- hb_back -->
-														<div class="hb_back">
-															<h2 class="work__title">数字时代的媒体变革</h2><span class="work__text">科技 · 2025-12-25</span>
-														</div><!-- End / hb_back -->
-														
-													</div><!-- End / hoverbox ef-slide-bottom -->
+											<div class="work"><a th:href="@{/blog-detail.html(id=${article.id})}">
+
+												<!-- hoverbox ef-slide-bottom -->
+												<div class="hoverbox ef-slide-bottom light">
+
+													<!-- hb_front -->
+													<div class="hb_front">
+														<img th:src="${article.coverImage != null and article.coverImage != '' ? article.coverImage : '/assets/img/pexels-photo-807034.jpeg'}" alt=""/>
+													</div><!-- End / hb_front -->
+
+
+													<!-- hb_back -->
+													<div class="hb_back">
+														<h2 class="work__title" th:text="${article.title}">新闻标题</h2>
+														<span class="work__text" th:text="${article.tag != null ? article.tag : '资讯'}">标签</span>
+													</div><!-- End / hb_back -->
+
+												</div><!-- End / hoverbox ef-slide-bottom -->
 													</a>
 											</div><!-- End / news -->
-											
+
 										</div>
 									</div>
 								</div>
-								<div class="grid-item">
-									<div class="grid-item__inner">
-										<div class="grid-item__content-wrapper">
-											
-											<!-- news -->
-											<div class="work"><a href="blog-detail.html">
-													
-													<!-- hoverbox ef-slide-right -->
-													<div class="hoverbox ef-slide-right light">
-														
-														<!-- hb_front -->
-														<div class="hb_front"><img src="/assets/img/pexels-photo-754949.jpeg" alt=""/>
-														</div><!-- End / hb_front -->
-														
-														
-														<!-- hb_back -->
-														<div class="hb_back">
-															<h2 class="work__title">全球经济复苏的新机遇</h2><span class="work__text">财经 · 2025-12-24</span>
-														</div><!-- End / hb_back -->
-														
-													</div><!-- End / hoverbox ef-slide-right -->
-													</a>
-											</div><!-- End / news -->
-											
-										</div>
-									</div>
-								</div>
-								<div class="grid-item">
-									<div class="grid-item__inner">
-										<div class="grid-item__content-wrapper">
-											
-											<!-- news -->
-											<div class="work"><a href="blog-detail.html">
-													
-													<!-- hoverbox ef-zoom-in -->
-													<div class="hoverbox ef-zoom-in light">
-														
-														<!-- hb_front -->
-														<div class="hb_front"><img src="/assets/img/pexels-photo-794578.jpeg" alt=""/>
-														</div><!-- End / hb_front -->
-														
-														
-														<!-- hb_back -->
-														<div class="hb_back">
-															<h2 class="work__title">人工智能在医疗领域的应用</h2><span class="work__text">科技 · 2025-12-23</span>
-														</div><!-- End / hb_back -->
-														
-													</div><!-- End / hoverbox ef-zoom-in -->
-													</a>
-											</div><!-- End / news -->
-											
-										</div>
-									</div>
-								</div>
-								<div class="grid-item">
-									<div class="grid-item__inner">
-										<div class="grid-item__content-wrapper">
-											
-											<!-- news -->
-											<div class="work"><a href="blog-detail.html">
-													
-													<!-- hoverbox ef-zoom-in -->
-													<div class="hoverbox ef-zoom-in light">
-														
-														<!-- hb_front -->
-														<div class="hb_front"><img src="/assets/img/pexels-photo-580649.jpeg" alt=""/>
-														</div><!-- End / hb_front -->
-														
-														
-														<!-- hb_back -->
-														<div class="hb_back">
-															<h2 class="work__title">文化遗产保护的创新路径</h2><span class="work__text">文化 · 2025-12-22</span>
-														</div><!-- End / hb_back -->
-														
-													</div><!-- End / hoverbox ef-zoom-in -->
-													</a>
-											</div><!-- End / news -->
-											
-										</div>
-									</div>
-								</div>
-								<div class="grid-item">
-									<div class="grid-item__inner">
-										<div class="grid-item__content-wrapper">
-											
-											<!-- news -->
-											<div class="work"><a href="blog-detail.html">
-													
-													<!-- hoverbox ef-slide-right -->
-													<div class="hoverbox ef-slide-right light">
-														
-														<!-- hb_front -->
-														<div class="hb_front"><img src="/assets/img/pexels-photo-290386.jpeg" alt=""/>
-														</div><!-- End / hb_front -->
-														
-														
-														<!-- hb_back -->
-														<div class="hb_back">
-															<h2 class="work__title">新能源技术发展报告</h2><span class="work__text">科技 · 2025-12-21</span>
-														</div><!-- End / hb_back -->
-														
-													</div><!-- End / hoverbox ef-slide-right -->
-													</a>
-											</div><!-- End / news -->
-											
-										</div>
-									</div>
-								</div>
-								<div class="grid-item">
-									<div class="grid-item__inner">
-										<div class="grid-item__content-wrapper">
-											
-											<!-- news -->
-											<div class="work"><a href="blog-detail.html">
-													
-													<!-- hoverbox ef-move-right -->
-													<div class="hoverbox ef-move-right light">
-														
-														<!-- hb_front -->
-														<div class="hb_front"><img src="/assets/img/pexels-photo-792906.jpeg" alt=""/>
-														</div><!-- End / hb_front -->
-														
-														
-														<!-- hb_back -->
-														<div class="hb_back">
-															<h2 class="work__title">教育改革的未来趋势</h2><span class="work__text">教育 · 2025-12-20</span>
-														</div><!-- End / hb_back -->
-														
-													</div><!-- End / hoverbox ef-move-right -->
-													</a>
-											</div><!-- End / news -->
-											
-										</div>
-									</div>
-								</div>
-								<div class="grid-item">
-									<div class="grid-item__inner">
-										<div class="grid-item__content-wrapper">
-											
-											<!-- news -->
-											<div class="work"><a href="blog-detail.html">
-													
-													<!-- hoverbox ef-move-bottom -->
-													<div class="hoverbox ef-move-bottom light">
-														
-														<!-- hb_front -->
-														<div class="hb_front"><img src="/assets/img/pexels-photo-789140.jpeg" alt=""/>
-														</div><!-- End / hb_front -->
-														
-														
-														<!-- hb_back -->
-														<div class="hb_back">
-															<h2 class="work__title">健康生活方式的科学依据</h2><span class="work__text">健康 · 2025-12-19</span>
-														</div><!-- End / hb_back -->
-														
-													</div><!-- End / hoverbox ef-move-bottom -->
-													</a>
-											</div><!-- End / news -->
-											
-										</div>
-									</div>
-								</div>
-								<div class="grid-item">
-									<div class="grid-item__inner">
-										<div class="grid-item__content-wrapper">
-											
-											<!-- news -->
-											<div class="work"><a href="blog-detail.html">
-													
-													<!-- hoverbox ef-move-bottom -->
-													<div class="hoverbox ef-move-bottom light">
-														
-														<!-- hb_front -->
-														<div class="hb_front"><img src="/assets/img/pexels-photo.jpg" alt=""/>
-														</div><!-- End / hb_front -->
-														
-														
-														<!-- hb_back -->
-														<div class="hb_back">
-															<h2 class="work__title">艺术与科技的融合创新</h2><span class="work__text">文化 · 2025-12-18</span>
-														</div><!-- End / hb_back -->
-														
-													</div><!-- End / hoverbox ef-move-bottom -->
-													</a>
-											</div><!-- End / news -->
-											
-										</div>
-									</div>
-								</div>
+								</th:block>
 							</div>
 						</div>
 						<div class="awe-text-center mt-50">
