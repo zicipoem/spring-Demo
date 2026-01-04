@@ -8,28 +8,24 @@ import org.springframework.stereotype.Service;
 import cn.edu.zfc.community.dao.UserDao;
 import cn.edu.zfc.community.pojo.User;
 
+// 用户服务类
 @Service
 public class UserService {
+    // 用户数据访问对象
     @Autowired
     private UserDao userDao;
 
-    /**
-     * 根据用户名查询用户
-     */
+    // 根据用户名查询用户
     public User findTopByName(String name) {
         return userDao.findTopByName(name);
     }
 
-    /**
-     * 保存用户
-     */
+    // 保存用户
     public void save(User user) {
         userDao.save(user);
     }
 
-    /**
-     * 初始化管理员
-     */
+    // 初始化管理员
     @PostConstruct 
     public void initAdmin() {
         User haveAdmin = userDao.findTopByRole("admin");

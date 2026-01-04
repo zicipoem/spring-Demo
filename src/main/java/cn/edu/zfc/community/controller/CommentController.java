@@ -13,19 +13,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+// 评论控制器
 @RestController
 @RequestMapping("/comment")
 public class CommentController {
     
+    // 评论服务
     @Autowired
     private CommentService commentService;
     
+    // 评论数据访问对象
     @Autowired
     private CommentDao commentDao;
     
-    /**
-     * 评论管理列表页面
-     */
+    // 评论管理列表页面
     @RequestMapping("/list")
     public org.springframework.web.servlet.ModelAndView list() {
         org.springframework.web.servlet.ModelAndView mv = new org.springframework.web.servlet.ModelAndView("commentList");
@@ -36,9 +37,7 @@ public class CommentController {
         return mv;
     }
     
-    /**
-     * 获取文章评论列表
-     */
+    // 获取文章评论列表
     @GetMapping("/list/{articleId}")
     public Map<String, Object> getCommentList(@PathVariable Long articleId) {
         Map<String, Object> result = new HashMap<>();
@@ -54,9 +53,7 @@ public class CommentController {
         return result;
     }
     
-    /**
-     * 添加评论
-     */
+    // 添加评论
     @PostMapping("/add")
     public Map<String, Object> addComment(@RequestParam Long articleId, 
                                        @RequestParam String content) {
@@ -87,9 +84,7 @@ public class CommentController {
         return result;
     }
     
-    /**
-     * 删除评论
-     */
+    // 删除评论
     @PostMapping("/delete/{commentId}")
     public Map<String, Object> deleteComment(@PathVariable Long commentId) {
         Map<String, Object> result = new HashMap<>();

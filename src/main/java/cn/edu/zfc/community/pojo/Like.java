@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+// 点赞实体类
 @Entity
 @Table(name = "tb_like")
 @Data
@@ -26,6 +27,7 @@ public class Like {
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;    // 点赞时间
     
+    // 创建前的回调方法
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();

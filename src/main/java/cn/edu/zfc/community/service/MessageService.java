@@ -19,14 +19,17 @@ public class MessageService {
         return messageDao.save(message);
     }
 
+    // 获取留言列表
     public List<Message> listMessages() {
         return messageDao.findAllByOrderByCreatedAtDesc();
     }
 
+    // 根据ID获取留言
     public Message getMessageById(Long id) {
         return messageDao.findById(id).orElse(null);
     }
 
+    // 删除留言
     public boolean deleteMessage(Long id) {
         Message msg = messageDao.findById(id).orElse(null);
         if (msg != null) {

@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+/**
+ * 用户和交互数据生成器
+ * 用于生成测试数据，包括用户、留言、评论、点赞和收藏记录
+ */
 @SpringBootTest
 public class UserAndInteractionTestDataGenerator {
 
@@ -31,6 +35,10 @@ public class UserAndInteractionTestDataGenerator {
     @Autowired
     private ArticleDao articleDao;
 
+    /**
+     * 生成测试数据的主方法
+     * 包括用户、留言、评论、点赞和收藏记录
+     */
     @Test
     public void generateTestData() {
         // 生成20个用户
@@ -72,9 +80,16 @@ public class UserAndInteractionTestDataGenerator {
         System.out.println("收藏数: " + favorites.size());
     }
 
+    /**
+     * 生成指定数量的用户
+     * @param count 要生成的用户数量
+     * @return 生成的用户列表
+     */
     private List<User> generateUsers(int count) {
         List<User> users = new ArrayList<>();
-        String[] roles = {"user", "user", "user", "user", "admin"}; // 大部分是普通用户，少部分管理员
+        // 角色配置：大部分是普通用户，少部分管理员（每5个用户中有1个管理员）
+        String[] roles = {"user", "user", "user", "user", "admin"};
+        // 头像配置：5种不同的头像轮流使用
         String[] avatars = {
             "/assets/img/avatar1.png",
             "/assets/img/avatar2.png",
@@ -85,19 +100,30 @@ public class UserAndInteractionTestDataGenerator {
 
         for (int i = 1; i <= count; i++) {
             User user = new User();
+            // 生成用户名，格式：用户001、用户002等
             user.setName("用户" + String.format("%03d", i));
             user.setPassword("123456"); // 统一密码
+            // 轮流使用头像
             user.setAvatar(avatars[(i - 1) % avatars.length]);
+            // 轮流分配角色
             user.setRole(roles[(i - 1) % roles.length]);
             users.add(user);
         }
 
+        // 批量保存用户到数据库
         return userDao.saveAll(users);
     }
 
+    /**
+     * 生成指定数量的留言
+     * @param users 用户列表
+     * @param count 要生成的留言数量
+     * @return 生成的留言列表
+     */
     private List<Message> generateMessages(List<User> users, int count) {
         List<Message> messages = new ArrayList<>();
         Random random = new Random();
+        // 预定义的留言内容模板
         String[] messageContents = {
             "这个网站的内容非常丰富，更新也很及时！",
             "希望能增加更多的分类，方便查找。",
@@ -123,18 +149,30 @@ public class UserAndInteractionTestDataGenerator {
 
         for (int i = 0; i < count; i++) {
             Message message = new Message();
+            // 轮流使用用户名
             message.setName(users.get(i % users.size()).getName());
+            // 生成邮箱，格式：user1@example.com、user2@example.com等
             message.setEmail("user" + (i + 1) + "@example.com");
+            // 轮流使用留言内容
             message.setContent(messageContents[i % messageContents.length]);
             messages.add(message);
         }
 
+        // 批量保存留言到数据库
         return messageDao.saveAll(messages);
     }
 
+    /**
+     * 生成指定数量的评论
+     * @param users 用户列表
+     * @param articles 文章列表
+     * @param count 要生成的评论数量
+     * @return 生成的评论列表
+     */
     private List<Comment> generateComments(List<User> users, List<Article> articles, int count) {
         List<Comment> comments = new ArrayList<>();
         Random random = new Random();
+        // 预定义的评论内容模板
         String[] commentContents = {
             "这篇文章写得太好了，非常有启发性！",
             "观点很新颖，值得深思。",
@@ -150,16 +188,29 @@ public class UserAndInteractionTestDataGenerator {
 
         for (int i = 0; i < count; i++) {
             Comment comment = new Comment();
+            // 轮流为不同文章添加评论
             comment.setArticleId(articles.get(i % articles.size()).getId());
+            // 轮流使用不同用户
             comment.setUserId(users.get(i % users.size()).getId());
+            // 使用评论用户的头像
             comment.setAvatar(users.get(i % users.size()).getAvatar());
+            // 轮流使用评论内容
             comment.setContent(commentContents[i % commentContents.length]);
             comments.add(comment);
         }
 
+        // 批量保存评论到数据库
         return commentDao.saveAll(comments);
     }
 
+    /**
+     * 生成指定数量的点赞记录
+     * 随机为文章添加点赞，避免重复点赞
+     * @param users 用户列表
+     * @param articles 文章列表
+     * @param count 要生成的点赞记录数量
+     * @return 生成的点赞记录列表
+     */
     private List<Like> generateLikes(List<User> users, List<Article> articles, int count) {
         List<Like> likes = new ArrayList<>();
         Random random = new Random();
@@ -169,7 +220,7 @@ public class UserAndInteractionTestDataGenerator {
             User user = users.get(random.nextInt(users.size()));
             Article article = articles.get(random.nextInt(articles.size()));
 
-            // 检查是否已经点赞过
+            // 检查是否已经点赞过（避免重复点赞）
             Like existingLike = likeDao.findByArticleIdAndUserId(article.getId(), user.getId());
             if (existingLike == null) {
                 Like like = new Like();
@@ -179,9 +230,18 @@ public class UserAndInteractionTestDataGenerator {
             }
         }
 
+        // 批量保存点赞记录到数据库
         return likeDao.saveAll(likes);
     }
 
+    /**
+     * 生成指定数量的收藏记录
+     * 随机为文章添加收藏，避免重复收藏
+     * @param users 用户列表
+     * @param articles 文章列表
+     * @param count 要生成的收藏记录数量
+     * @return 生成的收藏记录列表
+     */
     private List<Favorite> generateFavorites(List<User> users, List<Article> articles, int count) {
         List<Favorite> favorites = new ArrayList<>();
         Random random = new Random();
@@ -191,7 +251,7 @@ public class UserAndInteractionTestDataGenerator {
             User user = users.get(random.nextInt(users.size()));
             Article article = articles.get(random.nextInt(articles.size()));
 
-            // 检查是否已经收藏过
+            // 检查是否已经收藏过（避免重复收藏）
             java.util.Optional<Favorite> existingFavorite = favoriteDao.findByArticleIdAndUserId(article.getId(), user.getId());
             if (!existingFavorite.isPresent()) {
                 Favorite favorite = new Favorite();
@@ -201,16 +261,27 @@ public class UserAndInteractionTestDataGenerator {
             }
         }
 
+        // 批量保存收藏记录到数据库
         return favoriteDao.saveAll(favorites);
     }
 
+    /**
+     * 更新所有文章的点赞和收藏数量
+     * 统计每篇文章的点赞数和收藏数，并更新到文章表中
+     * @param articles 要更新的文章列表
+     */
     private void updateArticleCounts(List<Article> articles) {
         for (Article article : articles) {
+            // 统计该文章的点赞数量
             Long likeCount = likeDao.countByArticleId(article.getId());
+            // 统计该文章的收藏数量
             Long favoriteCount = favoriteDao.countByArticleId(article.getId());
+            // 更新文章的点赞数
             article.setLikeCount(likeCount.intValue());
+            // 更新文章的收藏数
             article.setFavoriteCount(favoriteCount.intValue());
         }
+        // 批量保存更新后的文章
         articleDao.saveAll(articles);
     }
 }

@@ -15,15 +15,19 @@ import cn.edu.zfc.community.pojo.Message;
 import java.util.HashMap;
 import java.util.Map;
 
+// 留言控制器
 @RestController
 public class MessageController {
     
+    // 文章数据访问对象
     @Autowired
     private ArticleDao articleDao;
     
+    // 留言服务
     @Autowired
     private MessageService messageService;
     
+    // 留言页面
     @RequestMapping("/message.html")
     public ModelAndView message() {
         ModelAndView mv = new ModelAndView("message");
@@ -36,6 +40,7 @@ public class MessageController {
         return mv;
     }
 
+    // 添加留言
     @PostMapping("/message/add")
     public Map<String, Object> addMessage(@RequestParam(required = false) String name,
                                           @RequestParam(required = false) String email,

@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+// 收藏实体类
 @Entity
 @Table(name = "tb_favorite")
 @Data
@@ -26,6 +27,7 @@ public class Favorite {
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;    // 收藏时间
     
+    // 创建前的回调方法
     @PrePersist
     protected void onCreate() {
         createdAt = LocalDateTime.now();

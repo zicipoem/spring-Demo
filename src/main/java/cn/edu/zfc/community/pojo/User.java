@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+// 用户实体类
 @Entity
 @Table(name = "tb_user")
 @Data
@@ -14,9 +15,9 @@ import javax.persistence.*;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String password;
-    private String avatar;
-    private String role;
+    private Long id;         // 用户ID
+    private String name;     // 用户名
+    private String password;  // 密码
+    private String avatar;   // 头像
+    private String role;     // 角色
 }

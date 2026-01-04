@@ -9,6 +9,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
+// 评论实体类
 @Entity
 @Table(name = "tb_comment")
 @Data
@@ -30,11 +31,9 @@ public class Comment {
     private String avatar;              // 用户头像
     
     @Column(name = "content", nullable = false, length = 1000)
-    private String content;              // 评论内容
+    private String content;             // 评论内容
     
     @CreatedDate
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;    // 评论时间
-
-    
 }

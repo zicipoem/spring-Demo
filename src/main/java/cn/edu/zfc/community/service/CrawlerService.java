@@ -12,9 +12,11 @@ import cn.edu.zfc.community.pojo.Article;
 
 import java.io.IOException;
 
+// 爬虫服务类
 @Service
 public class CrawlerService {
 
+    // 文章数据访问对象
     @Autowired
     ArticleDao articleDao;
 
@@ -117,7 +119,7 @@ public class CrawlerService {
             img.attr("src", BASE_URL + img.attr("src"));
         });
 
-        //图片添加圆角类
+        // 图片添加圆角类
         contentEl.select("img").forEach(img -> {
             img.addClass("rounded-3");
         });

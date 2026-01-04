@@ -8,17 +8,16 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+// 导航栏实体类
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class Nav implements Serializable {
-    private String url;
-    private String name;
-    private boolean active;
+    private String url;      // 导航URL
+    private String name;     // 导航名称
+    private boolean active;  // 是否激活
 
-    /**
-     * 准备导航列表内容
-     */
+    // 准备导航列表内容
     public static List<Nav> all(String name) {
         List<Nav> list = new ArrayList<>();
         list.add(new Nav("/customer/list", "客户", name.equals("customer")));
