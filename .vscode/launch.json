@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-CommunityApplication<community>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "cn.edu.zfc.community.CommunityApplication",
+            "projectName": "community",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
