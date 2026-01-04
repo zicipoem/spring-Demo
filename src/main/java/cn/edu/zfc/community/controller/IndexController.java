@@ -4,6 +4,7 @@ import cn.edu.zfc.community.dao.ArticleDao;
 import cn.edu.zfc.community.utils.UserUtils;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,7 +18,7 @@ public class IndexController {
     @RequestMapping("/index.html")
     public ModelAndView index() {
         ModelAndView mv = new ModelAndView("index");
-        mv.addObject("list", articleDao.findAll());
+        mv.addObject("list", articleDao.findAll(PageRequest.of(0, 12)).getContent());
 
         mv.addObject("isAdmin", UserUtils.isAdmin());
         mv.addObject("user", UserUtils.getCurrentUser());
